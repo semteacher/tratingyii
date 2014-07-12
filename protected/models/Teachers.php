@@ -37,6 +37,7 @@ class Teachers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('fname, lname, google_email', 'required'),
 			array('google_email', 'numerical', 'integerOnly'=>true),
 			array('fname, lname, tdmu_login, tdmu_id, google_id', 'length', 'max'=>20),
 			array('tdmu_pass', 'length', 'max'=>100),
