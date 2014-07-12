@@ -102,7 +102,7 @@ class Teachers2departments extends CActiveRecord
 		$criteria->compare('dep_role_id',$this->dep_role_id);
 		$criteria->compare('is_chief',$this->is_chief);
 		$criteria->compare('is_admin',$this->is_admin);
-
+//var_dump($criteria);die;
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

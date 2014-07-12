@@ -135,6 +135,7 @@ class Teachers2departmentsController extends Controller
 	{
 		$model=new Teachers2departments('search');
 		$model->unsetAttributes();  // clear any default values
+        //$dep=$model->dep->dep_name;
 		if(isset($_GET['Teachers2departments']))
 			$model->attributes=$_GET['Teachers2departments'];
 
