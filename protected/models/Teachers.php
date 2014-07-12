@@ -72,11 +72,11 @@ class Teachers extends CActiveRecord
 			'lname' => 'Lname',
 			'tdmu_login' => 'Tdmu Login',
 			'tdmu_pass' => 'Tdmu Pass',
-			'tdmu_id' => 'Tdmu',
+			'tdmu_id' => 'TdmuID',
 			'google_email' => 'Google Email',
 			'google_link' => 'Google Link',
 			'google_photo' => 'Google Photo',
-			'google_id' => 'Google',
+			'google_id' => 'GoogleID',
 		);
 	}
 

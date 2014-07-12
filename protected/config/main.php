@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Teachers Rating',
+    //'defaultController'=>'site',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

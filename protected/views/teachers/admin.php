@@ -49,14 +49,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'fname',
 		'lname',
 		'tdmu_login',
-		'tdmu_pass',
+//		'tdmu_pass',
 		'tdmu_id',
-		/*
+
 		'google_email',
-		'google_link',
+//		'google_link',
 		'google_photo',
 		'google_id',
-		*/
+
 		array(
 			'class'=>'CButtonColumn',
 		),
