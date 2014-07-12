@@ -116,10 +116,16 @@ class Teachers extends CActiveRecord
 
     public function save()
     {
-        $this->tdmu_pass = crypt($this->tdmu_pass);
+        //$this->tdmu_pass = crypt($this->tdmu_pass);
+        $this->tdmu_pass = CPasswordHelper::hashPassword($this->tdmu_pass);
+
         return parent::save();
     }
 
+    public function validatePassword($password)
+    {
+        return CPasswordHelper::verifyPassword($password,$this->tdmu_pass);
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
