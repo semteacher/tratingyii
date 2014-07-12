@@ -19,4 +19,11 @@
 	?>
 	</div><!-- sidebar -->
 </div>
+
+<div class="span-5 last">
+    <div id="sidebar">
+        <?php if(Yii::app()->user->name==='admin') $this->widget('AdminMenu'); ?>
+    </div>
+</div>
+
 <?php $this->endContent(); ?>
