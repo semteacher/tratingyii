@@ -136,3 +136,32 @@ Stack trace:
 REQUEST_URI=/index.php?r=generalInfo/create
 HTTP_REFERER=http://tratingyii.loc/index.php?r=generalInfo/index
 ---
+2014/07/12 16:52:44 [error] [php] call_user_func() expects parameter 1 to be a valid callback, array must have exactly two members (Z:\home\tratingyii.loc\www\framework\web\helpers\CHtml.php:2143)
+Stack trace:
+#0 Z:\home\tratingyii.loc\www\protected\views\teachers2departments\_form.php(30): listData()
+#1 Z:\home\tratingyii.loc\www\framework\web\CBaseController.php(126): require()
+#2 Z:\home\tratingyii.loc\www\framework\web\CBaseController.php(95): Teachers2departmentsController->renderInternal()
+#3 Z:\home\tratingyii.loc\www\framework\web\CController.php(869): Teachers2departmentsController->renderFile()
+#4 Z:\home\tratingyii.loc\www\protected\views\teachers2departments\create.php(18): Teachers2departmentsController->renderPartial()
+#5 Z:\home\tratingyii.loc\www\framework\web\CBaseController.php(126): require()
+#6 Z:\home\tratingyii.loc\www\framework\web\CBaseController.php(95): Teachers2departmentsController->renderInternal()
+#7 Z:\home\tratingyii.loc\www\framework\web\CController.php(869): Teachers2departmentsController->renderFile()
+#8 Z:\home\tratingyii.loc\www\framework\web\CController.php(782): Teachers2departmentsController->renderPartial()
+#9 Z:\home\tratingyii.loc\www\protected\controllers\Teachers2departmentsController.php(79): Teachers2departmentsController->render()
+#10 Z:\home\tratingyii.loc\www\framework\web\actions\CInlineAction.php(49): Teachers2departmentsController->actionCreate()
+#11 Z:\home\tratingyii.loc\www\framework\web\CController.php(308): CInlineAction->runWithParams()
+#12 Z:\home\tratingyii.loc\www\framework\web\filters\CFilterChain.php(133): Teachers2departmentsController->runAction()
+#13 Z:\home\tratingyii.loc\www\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 Z:\home\tratingyii.loc\www\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#15 Z:\home\tratingyii.loc\www\framework\web\filters\CInlineFilter.php(58): Teachers2departmentsController->filterAccessControl()
+#16 Z:\home\tratingyii.loc\www\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#17 Z:\home\tratingyii.loc\www\framework\web\CController.php(291): CFilterChain->run()
+#18 Z:\home\tratingyii.loc\www\framework\web\CController.php(265): Teachers2departmentsController->runActionWithFilters()
+#19 Z:\home\tratingyii.loc\www\framework\web\CWebApplication.php(282): Teachers2departmentsController->run()
+#20 Z:\home\tratingyii.loc\www\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#21 Z:\home\tratingyii.loc\www\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#22 Z:\home\tratingyii.loc\www\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=teachers2departments/create
+in Z:\home\tratingyii.loc\www\protected\views\teachers2departments\_form.php (30)
+in Z:\home\tratingyii.loc\www\protected\views\teachers2departments\create.php (18)
+in Z:\home\tratingyii.loc\www\protected\controllers\Teachers2departmentsController.php (79)

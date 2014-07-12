@@ -20,14 +20,16 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+        <?php $departmentdata = CHtml::listData( Departments::model()->findAll(),'id','dep_name' ); ?>
 		<?php echo $form->labelEx($model,'dep_id'); ?>
-		<?php echo $form->textField($model,'dep_id'); ?>
+        <?php echo $form->dropDownList($model,'dep_id', $departmentdata); ?>
 		<?php echo $form->error($model,'dep_id'); ?>
 	</div>
 
 	<div class="row">
+        <?php $teacherdata = CHtml::listData( Teachers::model()->findAll(),'id', 'lname' ); ?>//TODO:display 2 fields: first and lastname
 		<?php echo $form->labelEx($model,'teacher_id'); ?>
-		<?php echo $form->textField($model,'teacher_id'); ?>
+        <?php echo $form->dropDownList($model,'teacher_id', $teacherdata); ?>
 		<?php echo $form->error($model,'teacher_id'); ?>
 	</div>
 
