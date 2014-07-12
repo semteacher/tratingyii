@@ -62,14 +62,14 @@ class DepartmentsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Departments;
+        $model=new Departments;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Departments']))
 		{
-			$model->attributes=$_POST['Departments'];
+            $model->attributes=$_POST['Departments'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -86,14 +86,14 @@ class DepartmentsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+        $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Departments']))
 		{
-			$model->attributes=$_POST['Departments'];
+            $model->attributes=$_POST['Departments'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -134,9 +134,9 @@ class DepartmentsController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Departments('search');
-		$model->unsetAttributes();  // clear any default values
+        $model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Departments']))
-			$model->attributes=$_GET['Departments'];
+            $model->attributes=$_GET['Departments'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -152,7 +152,7 @@ class DepartmentsController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Departments::model()->findByPk($id);
+        $model=Departments::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -227,3 +227,7 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.loadGIF {
+    background: url(/images/loading.gif) left center no-repeat ;
+}

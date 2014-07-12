@@ -40,6 +40,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
+<div id="parentView">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'departments-grid',
 	'dataProvider'=>$model->search(),
@@ -53,4 +54,25 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 		),
 	),
+    'ajaxUpdate' => 'childView',
 )); ?>
+</div>
+
+<p id="loadingPic"></br></p>
+
+<div id="childView">
+    <?php
+    $this->renderPartial('_child', array(
+        'child_model' => $child_model,
+        'parentID' => $parentID,
+    ))
+    ?>
+</div>
+
+<?php
+/* Загрузка javascript-файла,
+   содержащего нашу Ajax-функцию */
+$path = Yii::app()->baseUrl.'/js/customFunctions.js';
+Yii::app()->clientScript->registerScriptFile($path,
+    CClientScript::POS_END);
+?>
