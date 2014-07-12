@@ -39,8 +39,9 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tdmu_pass'); ?>
-		<?php echo $form->textField($model,'tdmu_pass',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'tdmu_pass'); ?>
+<!--		--><?php //echo $form->textField($model,'tdmu_pass',array('size'=>60,'maxlength'=>100)); ?>
+        <?php echo $form->passwordField($model,'tdmu_pass',array('size'=>60,'maxlength'=>100)); ?>
+        <?php echo $form->error($model,'tdmu_pass'); ?>
 	</div>
 
 	<div class="row">

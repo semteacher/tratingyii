@@ -10,7 +10,7 @@
  * @property string $tdmu_login
  * @property string $tdmu_pass
  * @property string $tdmu_id
- * @property integer $google_email
+ * @property string $google_email
  * @property string $google_link
  * @property string $google_photo
  * @property string $google_id
@@ -38,8 +38,8 @@ class Teachers extends CActiveRecord
 		// will receive user inputs.
 		return array(
             array('fname, lname, google_email', 'required'),
-			array('google_email', 'numerical', 'integerOnly'=>true),
-			array('fname, lname, tdmu_login, tdmu_id, google_id', 'length', 'max'=>20),
+			//array('google_email', 'numerical', 'integerOnly'=>true),
+			array('fname, lname, tdmu_login, tdmu_id, google_id, google_email', 'length', 'max'=>20),
 			array('tdmu_pass', 'length', 'max'=>100),
 			array('google_link, google_photo', 'length', 'max'=>150),
 			// The following rule is used by search().
@@ -113,6 +113,12 @@ class Teachers extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function save()
+    {
+        $this->tdmu_pass = crypt($this->tdmu_pass);
+        return parent::save();
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.
