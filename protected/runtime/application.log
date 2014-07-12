@@ -1,0 +1,14 @@
+2014/07/11 20:00:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to find the code you requested.' in Z:\home\tratingyii.loc\www\framework\gii\CCodeGenerator.php:90
+Stack trace:
+#0 Z:\home\tratingyii.loc\www\framework\web\actions\CInlineAction.php(49): CCodeGenerator->actionCode()
+#1 Z:\home\tratingyii.loc\www\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#2 Z:\home\tratingyii.loc\www\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#3 Z:\home\tratingyii.loc\www\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#4 Z:\home\tratingyii.loc\www\framework\web\CWebApplication.php(282): CController->run('code')
+#5 Z:\home\tratingyii.loc\www\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/model/code')
+#6 Z:\home\tratingyii.loc\www\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 Z:\home\tratingyii.loc\www\index.php(13): CApplication->run()
+#8 {main}
+REQUEST_URI=/index.php?r=gii/model/code&id=0
+HTTP_REFERER=http://tratingyii.loc/index.php?r=gii/model/index
+---
