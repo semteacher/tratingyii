@@ -47,14 +47,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
         array(
-            'name'=>'dep_name',
+            'name'=>'dep_name_param',
             /* Проверяем, чтобы пустые связанные поля не приводили
                к ошибкам приложения */
             'value'=>'($data->dep)?$data->
                 dep->dep_name:""',
             'header'=>'Department',
-            'filter' => CHtml::activeTextField(Departments::model(),
-                    'dep_name'),
+            'filter' => CHtml::activeTextField(Teachers2departments::model(),
+                    'dep_name_param'),
         ),
 //		'dep_id',
         array(
