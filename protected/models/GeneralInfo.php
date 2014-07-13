@@ -51,6 +51,7 @@ class GeneralInfo extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'rating2indices' => array(self::HAS_MANY, 'Rating2indices', 'rating_id'),
+            'rating2teacher' => array(self::HAS_MANY, 'Rating2teacher', 'rating_id'),
 		);
 	}
 
