@@ -46,15 +46,34 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'dep_id',
-		'teacher_id',
+        array(
+            'name'=>'dep_name_param',
+            /* Проверяем, чтобы пустые связанные поля не приводили
+               к ошибкам приложения */
+            'value'=>'($data->dep)?$data->
+                dep->dep_name:""',
+            'header'=>'Department',
+            'filter' => CHtml::activeTextField(Teachers2departments::model(),
+                    'dep_name_param'),
+        ),
+//		'dep_id',
+        array(
+            'name'=>'lname',
+            /* Проверяем, чтобы пустые связанные поля не приводили
+               к ошибкам приложения */
+            'value'=>'($data->teacher)?$data->
+                teacher->lname:""',
+            'header'=>'Teacher',
+            'filter' => CHtml::activeTextField(Teachers::model(),
+                    'lname'),
+        ),
+//		'teacher_id',
 		'assigned',
 		'released',
 		'dep_role_id',
-		/*
 		'is_chief',
 		'is_admin',
-		*/
+
 		array(
 			'class'=>'CButtonColumn',
 		),

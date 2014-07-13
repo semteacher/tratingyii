@@ -1,6 +1,6 @@
 <?php
 
-class Teachers2departmentsController extends Controller
+class Rating2indicesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -36,7 +36,7 @@ class Teachers2departmentsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('bulkcreate','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -62,14 +62,14 @@ class Teachers2departmentsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Teachers2departments;
+		$model=new Rating2indices;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Teachers2departments']))
+		if(isset($_POST['Rating2indices']))
 		{
-			$model->attributes=$_POST['Teachers2departments'];
+			$model->attributes=$_POST['Rating2indices'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -79,6 +79,31 @@ class Teachers2departmentsController extends Controller
 		));
 	}
 
+    /**
+     * Bulk Creates a new models.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionBulkCreate()
+    {
+        $rating_model=new GeneralInfo('search');
+
+        $model=new Rating2indices;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Rating2indices']))
+        {
+            $model->attributes=$_POST['Rating2indices'];
+            if($model->save())
+                $this->redirect(array('view','id'=>$model->id));
+        }
+
+        $this->render('bulkcreate',array(
+            'model'=>$model,
+            'rating_model'=>$rating_model,
+        ));
+    }
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -91,9 +116,9 @@ class Teachers2departmentsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Teachers2departments']))
+		if(isset($_POST['Rating2indices']))
 		{
-			$model->attributes=$_POST['Teachers2departments'];
+			$model->attributes=$_POST['Rating2indices'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +147,7 @@ class Teachers2departmentsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Teachers2departments');
+		$dataProvider=new CActiveDataProvider('Rating2indices');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,11 +158,10 @@ class Teachers2departmentsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Teachers2departments('search');
+		$model=new Rating2indices('search');
 		$model->unsetAttributes();  // clear any default values
-        //$dep=$model->dep->dep_name;
-		if(isset($_GET['Teachers2departments']))
-			$model->attributes=$_GET['Teachers2departments'];
+		if(isset($_GET['Rating2indices']))
+			$model->attributes=$_GET['Rating2indices'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -148,12 +172,12 @@ class Teachers2departmentsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Teachers2departments the loaded model
+	 * @return Rating2indices the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Teachers2departments::model()->findByPk($id);
+		$model=Rating2indices::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -161,11 +185,11 @@ class Teachers2departmentsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Teachers2departments $model the model to be validated
+	 * @param Rating2indices $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='teachers2departments-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='rating2indices-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -21,6 +21,7 @@
  */
 class Teachers extends CActiveRecord
 {
+    public $_fio;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -44,7 +45,7 @@ class Teachers extends CActiveRecord
 			array('google_link, google_photo', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, fname, lname, tdmu_login, tdmu_pass, tdmu_id, google_email, google_link, google_photo, google_id', 'safe', 'on'=>'search'),
+			array('id, fname, lname, fio, tdmu_login, tdmu_pass, tdmu_id, google_email, google_link, google_photo, google_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +71,7 @@ class Teachers extends CActiveRecord
 			'id' => 'ID',
 			'fname' => 'Fname',
 			'lname' => 'Lname',
+            'fio' => 'Teacher',
 			'tdmu_login' => 'Tdmu Login',
 			'tdmu_pass' => 'Tdmu Pass',
 			'tdmu_id' => 'TdmuID',
@@ -101,6 +103,9 @@ class Teachers extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('fname',$this->fname,true);
 		$criteria->compare('lname',$this->lname,true);
+        $criteria->compare('like(concat("fname"," ","lname"))',$this->_fio,true);//@todo Search does not working
+        //$criteria->compare('fio',$this->_fio,true);//@todo Search does not working
+       // $criteria->compare('fio',array($this->fname,$this->lname),true);
 		$criteria->compare('tdmu_login',$this->tdmu_login,true);
 		$criteria->compare('tdmu_pass',$this->tdmu_pass,true);
 		$criteria->compare('tdmu_id',$this->tdmu_id,true);
@@ -113,6 +118,17 @@ class Teachers extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getFio()
+    {
+        return $this->_fio = $this->fname . ' ' . $this->lname;
+        //return $this->fname . ' ' . $this->lname;
+    }
+
+    public function setFio()
+    {
+       // return $this->_fio = $this->fname . ' ' . $this->lname;
+    }
 
     public function save()
     {

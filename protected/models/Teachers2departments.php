@@ -20,6 +20,7 @@
  */
 class Teachers2departments extends CActiveRecord
 {
+    public $dep_name_param;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -41,7 +42,7 @@ class Teachers2departments extends CActiveRecord
 			array('assigned, released', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, dep_id, teacher_id, assigned, released, dep_role_id, is_chief, is_admin', 'safe', 'on'=>'search'),
+			array('id, dep_id, teacher_id, assigned, released, dep_role_id, is_chief, is_admin, dep_name_param', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,16 +94,20 @@ class Teachers2departments extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+        $criteria->with=array('dep');
+        $criteria->together = true;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('dep_id',$this->dep_id);
-		$criteria->compare('teacher_id',$this->teacher_id);
+		$criteria->compare('t.id',$this->id);
+//		$criteria->compare('dep_id',$this->dep_id);
+//		$criteria->compare('teacher_id',$this->teacher_id);
 		$criteria->compare('assigned',$this->assigned,true);
 		$criteria->compare('released',$this->released,true);
 		$criteria->compare('dep_role_id',$this->dep_role_id);
 		$criteria->compare('is_chief',$this->is_chief);
 		$criteria->compare('is_admin',$this->is_admin);
 
+        $criteria->compare('dep.dep_name', $this->dep_name_param,true);
+//var_dump($criteria);die;
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
