@@ -1,6 +1,7 @@
 <?php
 /* @var $this DepartmentsController */
 /* @var $model Departments */
+/* @var $teacher_model Teachers2departments */
 
 $this->breadcrumbs=array(
 	'Departments'=>array('index'),
@@ -63,8 +64,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <div id="childView">
     <?php
     $this->renderPartial('_child', array(
-        'child_model' => $child_model,
-        'parentID' => $parentID,
+        'teacher_model' => $teacher_model,
+        'depID' => $depID,
     ))
     ?>
 </div>

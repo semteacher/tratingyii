@@ -12,18 +12,18 @@
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id'=>'child-grid',
-    'dataProvider'=>$child_model->searchIncludingProducts($parentID),
-    'filter'=>$child_model,
+    'id'=>'teacher-child-grid',
+    'dataProvider'=>$teacher_model->searchByDepartments($depID),
+    'filter'=>$teacher_model,
     'columns'=>array(
         'id',
         array(
-            'name'=>'fname_param',
+            'name'=>'lname_param',
             /* Проверяем, чтобы пустые связанные поля не приводили
                к ошибкам приложения */
-            'value'=>'($data->relProduct)?$data->relProduct->product_name:""',
-            'header'=>'Product Name',
-            'filter' => CHtml::activeTextField($child_model, 'fname_param'),
+            'value'=>'($data->teacher)?$data->teacher->lname:""',
+            'header'=>'Last Name',
+            'filter' => CHtml::activeTextField($teacher_model, 'lname_param'),
         ),
         array(
             'class'=>'CButtonColumn',

@@ -7,7 +7,7 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         Go down to child(1) - which gives you the first column,
             containing the row's PK. */
         var gridRowPK = $(this).parent().children(':nth-child(1)').text();
- 
+ console.log(gridRowPK);
         /*Display the loading.gif file via jquery and CSS*/
         $("#loadingPic").addClass("loadGIF");
  
@@ -15,10 +15,10 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         controller’s actionAdmin.*/
  
         var request = $.ajax({ 
-          url: "admin",
+          url: "index.php?r=departments/admin",
           type: "GET",
           cache: false,
-          data: {parentID : gridRowPK},
+          data: {depID : gridRowPK},
           dataType: "html" 
         });
  
