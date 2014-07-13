@@ -38,12 +38,12 @@ class Rating2indices extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('rating_id, indices_id, indices_topic_id, indices_category_id', 'required'),
-			array('rating_id, indices_id, indices_topic_id, indices_category_id, acrive', 'numerical', 'integerOnly'=>true),
+			array('rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, is_chief_only', 'numerical', 'integerOnly'=>true),
 			array('weight', 'numerical'),
 			array('date_inc', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, acrive, weight, date_inc', 'safe', 'on'=>'search'),
+			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, weight, date_inc, is_chief_only', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class Rating2indices extends CActiveRecord
 			'indices_id' => 'Indices',
 			'indices_topic_id' => 'Indices Topic',
 			'indices_category_id' => 'Indices Category',
-			'acrive' => 'Acrive',
+			'is_archive' => 'Archive',
 			'weight' => 'Weight',
 			'date_inc' => 'Date Inc',
 		);
@@ -101,9 +101,10 @@ class Rating2indices extends CActiveRecord
 		$criteria->compare('indices_id',$this->indices_id);
 		$criteria->compare('indices_topic_id',$this->indices_topic_id);
 		$criteria->compare('indices_category_id',$this->indices_category_id);
-		$criteria->compare('acrive',$this->acrive);
+		$criteria->compare('is_archive',$this->is_archive);
 		$criteria->compare('weight',$this->weight);
 		$criteria->compare('date_inc',$this->date_inc,true);
+        $criteria->compare('is_archive',$this->is_chief_only);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
