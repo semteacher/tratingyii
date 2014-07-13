@@ -36,7 +36,7 @@ class Rating2indicesController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('bulkcreate','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -79,6 +79,31 @@ class Rating2indicesController extends Controller
 		));
 	}
 
+    /**
+     * Bulk Creates a new models.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionBulkCreate()
+    {
+        $rating_model=new GeneralInfo('search');
+
+        $model=new Rating2indices;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Rating2indices']))
+        {
+            $model->attributes=$_POST['Rating2indices'];
+            if($model->save())
+                $this->redirect(array('view','id'=>$model->id));
+        }
+
+        $this->render('bulkcreate',array(
+            'model'=>$model,
+            'rating_model'=>$rating_model,
+        ));
+    }
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
