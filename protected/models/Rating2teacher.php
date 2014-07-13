@@ -1,32 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "{{rating2indices}}".
+ * This is the model class for table "{{rating2teacher}}".
  *
- * The followings are the available columns in table '{{rating2indices}}':
+ * The followings are the available columns in table '{{rating2teacher}}':
  * @property integer $id
  * @property integer $rating_id
- * @property integer $indices_id
- * @property integer $indices_topic_id
- * @property integer $indices_category_id
- * @property integer $is_archive
- * @property double $weight
- * @property string $date_inc
- * @property integer $is_chief_only
+ * @property integer $teacher_id
+ * @property double $teach_rating
+ * @property string $rating_date
  *
  * The followings are the available model relations:
+ * @property Teachers $teacher
  * @property GeneralInfo $rating
- * @property Indices $indices
- * @property Teacher2indicesValues[] $teacher2indicesValues
  */
-class Rating2indices extends CActiveRecord
+class Rating2teacher extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{rating2indices}}';
+		return '{{rating2teacher}}';
 	}
 
 	/**
@@ -37,13 +32,13 @@ class Rating2indices extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rating_id, indices_id, indices_topic_id, indices_category_id', 'required'),
-			array('rating_id, indices_id, indices_topic_id, indices_category_id, acrive', 'numerical', 'integerOnly'=>true),
-			array('weight', 'numerical'),
-			array('date_inc', 'safe'),
+			array('rating_id, teacher_id', 'required'),
+			array('rating_id, teacher_id', 'numerical', 'integerOnly'=>true),
+			array('teach_rating', 'numerical'),
+			array('rating_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, acrive, weight, date_inc', 'safe', 'on'=>'search'),
+			array('id, rating_id, teacher_id, teach_rating, rating_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +50,8 @@ class Rating2indices extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'teacher' => array(self::BELONGS_TO, 'Teachers', 'teacher_id'),
 			'rating' => array(self::BELONGS_TO, 'GeneralInfo', 'rating_id'),
-			'indices' => array(self::BELONGS_TO, 'Indices', 'indices_id'),
-			'teacher2indicesValues' => array(self::HAS_MANY, 'Teacher2indicesValues', 'rating2indice_id'),
 		);
 	}
 
@@ -69,12 +63,9 @@ class Rating2indices extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'rating_id' => 'Rating',
-			'indices_id' => 'Indices',
-			'indices_topic_id' => 'Indices Topic',
-			'indices_category_id' => 'Indices Category',
-			'acrive' => 'Acrive',
-			'weight' => 'Weight',
-			'date_inc' => 'Date Inc',
+			'teacher_id' => 'Teacher',
+			'teach_rating' => 'Teach Rating',
+			'rating_date' => 'Rating Date',
 		);
 	}
 
@@ -98,12 +89,9 @@ class Rating2indices extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('rating_id',$this->rating_id);
-		$criteria->compare('indices_id',$this->indices_id);
-		$criteria->compare('indices_topic_id',$this->indices_topic_id);
-		$criteria->compare('indices_category_id',$this->indices_category_id);
-		$criteria->compare('acrive',$this->acrive);
-		$criteria->compare('weight',$this->weight);
-		$criteria->compare('date_inc',$this->date_inc,true);
+		$criteria->compare('teacher_id',$this->teacher_id);
+		$criteria->compare('teach_rating',$this->teach_rating);
+		$criteria->compare('rating_date',$this->rating_date,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -114,7 +102,7 @@ class Rating2indices extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Rating2indices the static model class
+	 * @return Rating2teacher the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -10,7 +10,7 @@
  * @property string $indice_name
  * @property string $indice_desc
  * @property integer $datatype_id
- * @property integer $indice_def_weight
+ * @property double $indice_def_weight
  *
  * The followings are the available model relations:
  * @property IndicesCategories $category
@@ -37,7 +37,8 @@ class Indices extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('topic_id, category_id, indice_name, datatype_id', 'required'),
-			array('topic_id, category_id, datatype_id, indice_def_weight', 'numerical', 'integerOnly'=>true),
+			array('indice_def_weight', 'numerical'),
+            array('topic_id, category_id, datatype_id', 'numerical', 'integerOnly'=>true),
 			array('indice_name', 'length', 'max'=>200),
 			array('indice_desc', 'length', 'max'=>500),
 			// The following rule is used by search().
