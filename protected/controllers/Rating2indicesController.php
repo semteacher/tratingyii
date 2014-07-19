@@ -87,6 +87,8 @@ class Rating2indicesController extends Controller
     {
         $rating_model=new GeneralInfo('search');
 
+        $indices_model=new Indices('search');
+
         $model=new Rating2indices;
 
         // Uncomment the following line if AJAX validation is needed
@@ -102,6 +104,7 @@ class Rating2indicesController extends Controller
         $this->render('bulkcreate',array(
             'model'=>$model,
             'rating_model'=>$rating_model,
+            'indices_model'=>$indices_model,
         ));
     }
 	/**
