@@ -48,7 +48,23 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'rating_name',
 		'rating_desc',
-		'ratingperiod_datestart',
+//		'ratingperiod_datestart',
+        array(
+            'name' => 'rating_period datestart',
+            'type' => 'raw',
+            'value' => '$data->ratingperiod_datestart',
+            'filter'=>$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    'model'=>$model,
+                    'attribute'=>'ratingperiod_datestart',
+                    'language'=>'en',
+                    'options'=>array(
+                        'showAnim'=>'fold',
+                        'dateFormat'=>'yyyy-mm-dd',
+                        'changeMonth' => 'true',
+                        'changeYear'=>'true',
+                    ),
+                ),true),
+        ),
 		'ratingperiod_dateend',
 		'submission_datestart',
 		'submission_dateend',
@@ -57,4 +73,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 		),
 	),
+    'afterAjaxUpdate'=>"function() {
+        jQuery('#GeneralInfo_ratingperiod_datestart').datepicker(jQuery.extend(jQuery.datepicker.regional['en'],{
+                                            'showAnim':'fold',
+                                            'dateFormat':'yyyy-mm-dd',
+                                            'changeMonth':'true',
+                                            'changeYear':'true'}));
+    }",
 )); ?>
