@@ -126,6 +126,10 @@ class Rating2indicesController extends Controller
 //var_dump($model);
                 $model->save();
             }
+            if(Yii::app()->request->isAjaxRequest){
+                echo 'success';
+                Yii::app()->end();
+            }
             //           if($model->save())
             //               $this->redirect(array('view','id'=>$model->id));
         }
@@ -133,6 +137,12 @@ class Rating2indicesController extends Controller
         $model=new Rating2indices('search');
         $model->unsetAttributes();  // clear any default values
         $resp=$model->findAllByAttributes(array('rating_id'=>$RatingID));
+        $checkarr = array();
+        foreach ($resp as $rat2inddata){
+            $checkarr[] = $rat2inddata->attributes[indices_id];
+        }
+        $respjson = new CJSON();
+        $respjson->encode($checkarr);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -154,8 +164,8 @@ class Rating2indicesController extends Controller
         ));
         }else{
             //TODO: send json response
-            var_dump($resp);
-            return $resp;
+            var_dump($checkarr);
+            return $checkarr;
 
         }
     }

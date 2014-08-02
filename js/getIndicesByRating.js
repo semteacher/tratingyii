@@ -7,6 +7,7 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         Go down to child(1) - which gives you the first column,
             containing the row's PK. */
         var gridRowPK = $(this).parent().children(':nth-child(1)').text();
+        //var gridRowPK = $('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0');
  //console.log(gridRowPK);
         /*Display the loading.gif file via jquery and CSS*/
         $("#loadingPic").addClass("loadGIF");
@@ -44,10 +45,12 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
 
         request.done(function(response) { 
             try{
+                console.log(response);
                 /*since you are updating innerHTML, make sure the
                 received data does not contain any javascript - 
                 for security reasons*/
-                if (response.indexOf('<script') == -1){
+                if (response.isArray){
+
                     /*update the view with the data received 
                     from the server*/       
             document.getElementById('childView').innerHTML = response;
