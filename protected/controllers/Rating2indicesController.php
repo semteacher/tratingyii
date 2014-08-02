@@ -87,13 +87,11 @@ class Rating2indicesController extends Controller
     {
         $rating_model=new GeneralInfo('search');
         $rating_model->unsetAttributes();  // clear any default values
-
-        $indices_model=new Indices('search');
-        $indices_model->unsetAttributes();  // clear any default values
-
         if(isset($_GET['GeneralInfo']))
             $rating_model->attributes=$_GET['GeneralInfo'];
 
+        $indices_model=new Indices('search');
+        $indices_model->unsetAttributes();  // clear any default values
         if(isset($_GET['Indices']))
             $indices_model->attributes=$_GET['Indices'];
 
@@ -104,23 +102,49 @@ class Rating2indicesController extends Controller
             $RatingID = $_GET['RatingID'];
             $group = "B";
         }
-//var_dump($RatingID);
-//var_dump($group);
+
+        if(isset($_POST['CheckData']))
+        {
+            $checkdata=$_POST['CheckData'];
+            if(isset($_POST['RatingID'])) {
+                $RatingID = $_POST['RatingID'];
+            } else{
+                $RatingID = array(1);//TODO: get first real ratingid
+            }
+            Rating2indices::model()->deleteAllByAttributes(array('rating_id'=>$RatingID[0]));//TODO: need check and update
+            //var_dump($checkdata);
+            //var_dump($RatingID[0]);
+            foreach ($checkdata as $indiceID) {
+                $tmp_indidce=$indices_model->findByPk($indiceID);
+                //var_dump($tmp_indidce);
+                $model = new Rating2indices;
+                $model->rating_id = $RatingID[0];
+                $model->indices_id = $tmp_indidce->attributes[id];
+                $model->indices_topic_id = $tmp_indidce->attributes[topic_id];
+                $model->indices_category_id = $tmp_indidce->attributes[category_id];
+               // $model->date_inc = today();
+//var_dump($model);
+                $model->save();
+            }
+            //           if($model->save())
+            //               $this->redirect(array('view','id'=>$model->id));
+        }
+
         $model=new Rating2indices('search');
         $model->unsetAttributes();  // clear any default values
-       // $model->setAttribute('rating_id',$RatingID);
         $resp=$model->findAllByAttributes(array('rating_id'=>$RatingID));
-        //var_dump($resp);
-//var_dump($model->findAllByAttributes(array('rating_id'=>$RatingID)));
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if(isset($_POST['Rating2indices']))
         {
+            $model=new Rating2indices('');
             $model->attributes=$_POST['Rating2indices'];
             if($model->save())
                 $this->redirect(array('view','id'=>$model->id));
         }
+
+
 
         if($group == "A"){
         $this->render('bulkcreate2',array(

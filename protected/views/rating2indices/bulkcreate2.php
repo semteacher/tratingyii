@@ -64,13 +64,21 @@ $('.search-form form').submit(function(){
     'id'=>'rating2indices-grid',
     'dataProvider'=>$indices_model->search(),
     'filter'=>$indices_model,
+    'selectableRows' => 2,
     'columns'=>array(
         array(
             'class'=>'CCheckBoxColumn',
-            'selectableRows' => 2,
+
+            'value'=>'$data["id"]',
             'checkBoxHtmlOptions' => array('class' => 'checkclass'),
         ),
-        'id',
+
+        array(
+            'header' => 'ID-s',
+            'value' => 'CHtml::encode($data["id"])',
+            'type' => 'raw',
+            'htmlOptions' => array('class' => 'indice'),
+        ),
         'topic_id',
         'category_id',
         'indice_name',
