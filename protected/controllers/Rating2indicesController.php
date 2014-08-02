@@ -88,7 +88,12 @@ class Rating2indicesController extends Controller
         $rating_model=new GeneralInfo('search');
 
         $indices_model=new Indices('search');
-
+        if(!isset($_GET['RatingID'])) {
+            $RatingID = 1;//TODO: get first real ratingid
+        } else {
+            $RatingID = $_GET['RatingID'];
+        }
+//var_dump($RatingID);
         $model=new Rating2indices;
 
         // Uncomment the following line if AJAX validation is needed
@@ -101,7 +106,7 @@ class Rating2indicesController extends Controller
                 $this->redirect(array('view','id'=>$model->id));
         }
 
-        $this->render('bulkcreate',array(
+        $this->render('bulkcreate2',array(
             'model'=>$model,
             'rating_model'=>$rating_model,
             'indices_model'=>$indices_model,

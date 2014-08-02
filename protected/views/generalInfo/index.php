@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'General Infos',
+	'Ratings General Info',
 );
 
 $this->menu=array(
-	array('label'=>'Create GeneralInfo', 'url'=>array('create')),
-	array('label'=>'Manage GeneralInfo', 'url'=>array('admin')),
+	array('label'=>'Create Rating', 'url'=>array('create')),
+	array('label'=>'Manage Rating', 'url'=>array('admin')),
 );
 ?>
 
-<h1>General Infos</h1>
+<h1>Ratings General Info</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
