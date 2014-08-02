@@ -82,7 +82,14 @@ $('.search-form form').submit(function(){
         ),
     ),
 )); ?>
+    <script>
 
+    </script>
+    <div style="margin-bottom: -30px;">
+        <button type="button" onclick="treat();">
+            <span>Save checks</span>
+        </button>
+    </div>
 <?php
 /* Загрузка javascript-файла,
    содержащего нашу Ajax-функцию */

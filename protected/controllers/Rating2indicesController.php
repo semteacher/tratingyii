@@ -86,16 +86,32 @@ class Rating2indicesController extends Controller
     public function actionBulkCreate()
     {
         $rating_model=new GeneralInfo('search');
+        $rating_model->unsetAttributes();  // clear any default values
 
         $indices_model=new Indices('search');
+        $indices_model->unsetAttributes();  // clear any default values
+
+        if(isset($_GET['GeneralInfo']))
+            $rating_model->attributes=$_GET['GeneralInfo'];
+
+        if(isset($_GET['Indices']))
+            $indices_model->attributes=$_GET['Indices'];
+
         if(!isset($_GET['RatingID'])) {
             $RatingID = 1;//TODO: get first real ratingid
+            $group = "A";
         } else {
             $RatingID = $_GET['RatingID'];
+            $group = "B";
         }
 //var_dump($RatingID);
-        $model=new Rating2indices;
-
+//var_dump($group);
+        $model=new Rating2indices('search');
+        $model->unsetAttributes();  // clear any default values
+       // $model->setAttribute('rating_id',$RatingID);
+        $resp=$model->findAllByAttributes(array('rating_id'=>$RatingID));
+        //var_dump($resp);
+//var_dump($model->findAllByAttributes(array('rating_id'=>$RatingID)));
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -106,11 +122,18 @@ class Rating2indicesController extends Controller
                 $this->redirect(array('view','id'=>$model->id));
         }
 
+        if($group == "A"){
         $this->render('bulkcreate2',array(
             'model'=>$model,
             'rating_model'=>$rating_model,
             'indices_model'=>$indices_model,
         ));
+        }else{
+            //TODO: send json response
+            var_dump($resp);
+            return $resp;
+
+        }
     }
 	/**
 	 * Updates a particular model.

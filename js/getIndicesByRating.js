@@ -91,3 +91,11 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         in production ***/
     }
 });
+function treat() {
+
+
+    alert($('#rating2indices-grid').yiiGridView('getChecked', 'rating2indices-grid_c0'));
+
+
+
+}
