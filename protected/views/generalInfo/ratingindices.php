@@ -49,6 +49,7 @@ $('.search-form form').submit(function(){
         'dataProvider' => $model->search(),
         'filter' => $model,
         'ajaxUpdate' => 'childView',
+        'selectionChanged'=> "updateChild",  // new function
         'columns' => array(
             'id',
             'rating_name',
@@ -124,3 +125,10 @@ $('.search-form form').submit(function(){
     ))
     ?>
 </div>
+
+<?php
+/*Load the javascript file that contains our own ajax function*/
+$path = Yii::app()->baseUrl.'/js/getIndicesByRating2.js';
+Yii::app()->clientScript->registerScriptFile($path,
+    CClientScript::POS_END);
+?>

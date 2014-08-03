@@ -7,7 +7,7 @@
  */
 ?>
 
-<p>Indices by selected Rating</p>
+<h3>Indices by selected Rating: <?php echo GeneralInfo::model()->findByPk($ratingID)->rating_name; ?></h3>
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -17,7 +17,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'columns'=>array(
         'id',
         'indices_topic_id',
-        'indices_category_id',
+        //'indices_category_id',
+        'indices.category.category_name',
         //'indices.indice_name',
         array(
             'name'=>'indice_name_param',
