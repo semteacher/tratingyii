@@ -30,12 +30,13 @@ $('.search-form form').submit(function(){
 
 <h1>Bulk Create Rating2indices</h1>
 <h3>Existing Ratings:</h3>
-
+<div id="parentView">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-    'id'=>'general-info-grid',
+    'id'=>'ratings-grid',
     'dataProvider'=>$rating_model->search(),
     'filter'=>$rating_model,
     'columns'=>array(
+        'id',
         'rating_name',
         'ratingperiod_datestart',
         'ratingperiod_dateend',
@@ -47,6 +48,7 @@ $('.search-form form').submit(function(){
         ),
     ),
 )); ?>
+</div>
 
     <h3>Include Indices:</h3>
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
@@ -56,17 +58,27 @@ $('.search-form form').submit(function(){
     )); ?>
 </div><!-- search-form -->
 
+<p id="loadingPic"></br></p>
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'rating2indices-grid',
     'dataProvider'=>$indices_model->search(),
     'filter'=>$indices_model,
+    'selectableRows' => 2,
     'columns'=>array(
         array(
             'class'=>'CCheckBoxColumn',
-            'selectableRows' => 2,
+
+            'value'=>'$data["id"]',
             'checkBoxHtmlOptions' => array('class' => 'checkclass'),
         ),
-        'id',
+
+        array(
+            'header' => 'ID-s',
+            'value' => 'CHtml::encode($data["id"])',
+            'type' => 'raw',
+            'htmlOptions' => array('class' => 'indice'),
+        ),
         'topic_id',
         'category_id',
         'indice_name',
@@ -78,3 +90,18 @@ $('.search-form form').submit(function(){
         ),
     ),
 )); ?>
+    <script>
+
+    </script>
+    <div style="margin-bottom: -30px;">
+        <button type="button" onclick="treat();">
+            <span>Save checks</span>
+        </button>
+    </div>
+<?php
+/* Загрузка javascript-файла,
+   содержащего нашу Ajax-функцию */
+$path = Yii::app()->baseUrl.'/js/getIndicesByRating.js';
+Yii::app()->clientScript->registerScriptFile($path,
+    CClientScript::POS_END);
+?>

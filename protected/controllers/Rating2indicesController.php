@@ -157,7 +157,7 @@ class Rating2indicesController extends Controller
 
 
         if($group == "A"){
-        $this->render('bulkcreate2',array(
+        $this->render('bulkcreate',array(
             'model'=>$model,
             'rating_model'=>$rating_model,
             'indices_model'=>$indices_model,
