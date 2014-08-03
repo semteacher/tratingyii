@@ -10,19 +10,19 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('rating_id')); ?>:</b>
-	<?php echo CHtml::encode($data->rating_id); ?>
+	<?php echo CHtml::encode($data->rating->rating_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('indices_id')); ?>:</b>
-	<?php echo CHtml::encode($data->indices_id); ?>
+	<?php echo CHtml::encode($data->indices->indice_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('indices_topic_id')); ?>:</b>
-	<?php echo CHtml::encode($data->indices_topic_id); ?>
+	<?php echo CHtml::encode($data->indices->topic->topic_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('indices_category_id')); ?>:</b>
-	<?php echo CHtml::encode($data->indices_category_id); ?>
+	<?php echo CHtml::encode($data->indices->category->category_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('is_archive')); ?>:</b>
