@@ -46,11 +46,29 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'topic_id',
-		'category_id',
+		//'topic_id',
+        array(
+            'name' => 'topic_id',
+            'type' => 'raw',
+            'value' => '$data->topic->topic_name',
+            'filter'=> CHtml::listData(IndicesTopics::model()->findAll(), 'id', 'topic_name'),
+        ),
+		//'category_id',
+        array(
+            'name' => 'category_id',
+            'type' => 'raw',
+            'value' => '$data->category->category_name',
+            'filter'=> CHtml::listData(IndicesCategories::model()->findAll(), 'id', 'category_name'),
+        ),
 		'indice_name',
 		'indice_desc',
-		'datatype_id',
+		//'datatype_id',
+        array(
+            'name' => 'datatype_id',
+            'type' => 'raw',
+            'value' => '$data->datatype->datatype_name',
+            'filter'=> CHtml::listData(IndicesDatatypes::model()->findAll(), 'id', 'datatype_name'),
+        ),
 		'indice_def_weight',
 
 		array(
