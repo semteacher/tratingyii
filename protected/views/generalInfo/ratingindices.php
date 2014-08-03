@@ -1,6 +1,6 @@
 <?php
 /* @var $this GeneralInfoController */
-/* @var $model GeneralInfo */
+/* @var $parent_model GeneralInfo */
 
 $this->breadcrumbs=array(
 	'General Infos'=>array('index'),
@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List Ratings', 'url'=>array('index')),
 	array('label'=>'Create Rating', 'url'=>array('create')),
-    array('label'=>'Manage Rating Indices', 'url'=>array('ratingindices')),
+    //array('label'=>'Manage Rating Indices', 'url'=>array('ratingindices')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Ratings General Infos</h1>
+<h1>Manage Indices Assignments by Ratings</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

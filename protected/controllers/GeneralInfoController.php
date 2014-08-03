@@ -37,7 +37,7 @@ class GeneralInfoController extends Controller
                 'users'=>array('admin'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('ratingindices','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -143,6 +143,18 @@ class GeneralInfoController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionRatingIndices()
+    {
+        $parent_model=new GeneralInfo('search');
+        $parent_model->unsetAttributes();  // clear any default values
+        if(isset($_GET['GeneralInfo']))
+            $parent_model->attributes=$_GET['GeneralInfo'];
+
+        $this->render('ratingindices',array(
+            'model'=>$parent_model,
+        ));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
