@@ -114,6 +114,8 @@ $('.search-form form').submit(function(){
     ?>
 </div>
 
+<p id="loadingPic"></br></p>
+
 <div id="ratingindicesView">
     <?php
     $this->renderPartial('_indicesbyrating', array(

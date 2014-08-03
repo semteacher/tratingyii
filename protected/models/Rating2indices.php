@@ -44,7 +44,7 @@ class Rating2indices extends CActiveRecord
 			array('date_inc', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, weight, date_inc, is_chief_only','safe', 'on'=>'search', 'searchByRating'),
+			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, weight, date_inc, is_chief_only','safe', 'on'=>'search'),
 		);
 	}
 
