@@ -33,25 +33,94 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ratingperiod_datestart'); ?>
-		<?php echo $form->textField($model,'ratingperiod_datestart'); ?>
+        <!-- <?php echo $form->textField($model,'ratingperiod_datestart'); ?>-->
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            'attribute' => 'ratingperiod_datestart',
+            'options' => array(
+                'showOn' => 'both',             // also opens with a button
+                'dateFormat' => 'yy-mm-dd',     // format of "2012-12-25"
+                'showOtherMonths' => true,      // show dates in other months
+                'selectOtherMonths' => true,    // can seelect dates in other months
+                'changeYear' => true,           // can change year
+                'changeMonth' => true,          // can change month
+            ),
+            'htmlOptions' => array(
+                'size' => '10',         // textField size
+                'maxlength' => '10',    // textField maxlength
+            ),
+        ));
+        ?>
 		<?php echo $form->error($model,'ratingperiod_datestart'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ratingperiod_dateend'); ?>
-		<?php echo $form->textField($model,'ratingperiod_dateend'); ?>
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            'attribute' => 'ratingperiod_dateend',
+            'options' => array(
+                'showOn' => 'both',             // also opens with a button
+                'dateFormat' => 'yy-mm-dd',     // format of "2012-12-25"
+                'showOtherMonths' => true,      // show dates in other months
+                'selectOtherMonths' => true,    // can seelect dates in other months
+                'changeYear' => true,           // can change year
+                'changeMonth' => true,          // can change month
+            ),
+            'htmlOptions' => array(
+                'size' => '10',         // textField size
+                'maxlength' => '10',    // textField maxlength
+            ),
+        ));
+        ?>
 		<?php echo $form->error($model,'ratingperiod_dateend'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'submission_datestart'); ?>
-		<?php echo $form->textField($model,'submission_datestart'); ?>
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            'attribute' => 'submission_datestart',
+            'options' => array(
+                'showOn' => 'both',             // also opens with a button
+                'dateFormat' => 'yy-mm-dd',     // format of "2012-12-25"
+                'showOtherMonths' => true,      // show dates in other months
+                'selectOtherMonths' => true,    // can seelect dates in other months
+                'changeYear' => true,           // can change year
+                'changeMonth' => true,          // can change month
+            ),
+            'htmlOptions' => array(
+                'size' => '10',         // textField size
+                'maxlength' => '10',    // textField maxlength
+            ),
+        ));
+        ?>
 		<?php echo $form->error($model,'submission_datestart'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'submission_dateend'); ?>
-		<?php echo $form->textField($model,'submission_dateend'); ?>
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            'attribute' => 'submission_dateend',
+            'options' => array(
+                'showOn' => 'both',             // also opens with a button
+                'dateFormat' => 'yy-mm-dd',     // format of "2012-12-25"
+                'showOtherMonths' => true,      // show dates in other months
+                'selectOtherMonths' => true,    // can seelect dates in other months
+                'changeYear' => true,           // can change year
+                'changeMonth' => true,          // can change month
+            ),
+            'htmlOptions' => array(
+                'size' => '10',         // textField size
+                'maxlength' => '10',    // textField maxlength
+            ),
+        ));
+        ?>
 		<?php echo $form->error($model,'submission_dateend'); ?>
 	</div>
 

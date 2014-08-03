@@ -62,14 +62,14 @@ class DepartmentsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Departments;
+        $model=new Departments;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Departments']))
 		{
-			$model->attributes=$_POST['Departments'];
+            $model->attributes=$_POST['Departments'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -86,14 +86,14 @@ class DepartmentsController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+        $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Departments']))
 		{
-			$model->attributes=$_POST['Departments'];
+            $model->attributes=$_POST['Departments'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -134,13 +134,68 @@ class DepartmentsController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Departments('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Departments']))
-			$model->attributes=$_GET['Departments'];
+        $model->unsetAttributes();  // clear any default values
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+		if(isset($_GET['Departments']))
+            $model->attributes=$_GET['Departments'];
+
+        if(!isset($_GET['depID']))
+        {
+            $group = "A";
+
+            $criteria=new CDbCriteria;
+            $criteria->compare('id', $model->id,true);
+            $criteria->compare('dep_name', $model->dep_name,true);
+            $criteria->compare('dep_type', $model->dep_type,true);
+
+            $dataProvider = new CActiveDataProvider('Departments',
+                array(
+                    'criteria'=>$criteria,
+                    'pagination'=>array('pageSize'=>5),
+                ));
+
+            if (count($dataProvider->getData()) > 0)
+            {
+                $first_model=$dataProvider->getData();
+                $depID = $first_model[0]->id;
+            }
+            else
+            {
+                $depID = 0;
+            }
+        }
+        else
+        {
+            $group = "B";
+            $depID = $_GET['depID'];
+        }
+
+        $teacher_model = new Teachers2departments('searchByDepartments');
+        $teacher_model->unsetAttributes();
+
+        if(isset($_GET['Teachers2departments']))
+            $teacher_model->attributes=$_GET['Teachers2departments'];
+
+
+        if($group == "A")
+        {
+            $this->render('admin',array(
+                'model'=>$model,
+                'teacher_model'=>$teacher_model,
+                'depID' => $depID,
+            ));
+        }
+        else
+        {
+            $this->renderPartial('_child', array(
+                'teacher_model'=>$teacher_model,
+                'depID' => $depID,
+            ));
+        }
+
+//		$this->render('admin',array(
+//			'model'=>$model,
+//		));
 	}
 
 	/**
@@ -152,7 +207,7 @@ class DepartmentsController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Departments::model()->findByPk($id);
+        $model=Departments::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

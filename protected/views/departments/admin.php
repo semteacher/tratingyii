@@ -1,6 +1,7 @@
 <?php
 /* @var $this DepartmentsController */
 /* @var $model Departments */
+/* @var $teacher_model Teachers2departments */
 
 $this->breadcrumbs=array(
 	'Departments'=>array('index'),
@@ -40,6 +41,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
+<div id="parentView">
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'departments-grid',
 	'dataProvider'=>$model->search(),
@@ -53,4 +55,25 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 		),
 	),
+    'ajaxUpdate' => 'childView',
 )); ?>
+</div>
+
+<p id="loadingPic"></br></p>
+
+<div id="childView">
+    <?php
+    $this->renderPartial('_child', array(
+        'teacher_model' => $teacher_model,
+        'depID' => $depID,
+    ))
+    ?>
+</div>
+
+<?php
+/* Загрузка javascript-файла,
+   содержащего нашу Ajax-функцию */
+$path = Yii::app()->baseUrl.'/js/customFunctions.js';
+Yii::app()->clientScript->registerScriptFile($path,
+    CClientScript::POS_END);
+?>

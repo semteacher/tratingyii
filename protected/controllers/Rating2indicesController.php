@@ -86,23 +86,88 @@ class Rating2indicesController extends Controller
     public function actionBulkCreate()
     {
         $rating_model=new GeneralInfo('search');
+        $rating_model->unsetAttributes();  // clear any default values
+        if(isset($_GET['GeneralInfo']))
+            $rating_model->attributes=$_GET['GeneralInfo'];
 
-        $model=new Rating2indices;
+        $indices_model=new Indices('search');
+        $indices_model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Indices']))
+            $indices_model->attributes=$_GET['Indices'];
 
+        if(!isset($_GET['RatingID'])) {
+            $RatingID = 1;//TODO: get first real ratingid
+            $group = "A";
+        } else {
+            $RatingID = $_GET['RatingID'];
+            $group = "B";
+        }
+
+        if(isset($_POST['CheckData']))
+        {
+            $checkdata=$_POST['CheckData'];
+            if(isset($_POST['RatingID'])) {
+                $RatingID = $_POST['RatingID'];
+            } else{
+                $RatingID = array(1);//TODO: get first real ratingid
+            }
+            Rating2indices::model()->deleteAllByAttributes(array('rating_id'=>$RatingID[0]));//TODO: need check and update
+            //var_dump($checkdata);
+            //var_dump($RatingID[0]);
+            foreach ($checkdata as $indiceID) {
+                $tmp_indidce=$indices_model->findByPk($indiceID);
+                //var_dump($tmp_indidce);
+                $model = new Rating2indices;
+                $model->rating_id = $RatingID[0];
+                $model->indices_id = $tmp_indidce->attributes[id];
+                $model->indices_topic_id = $tmp_indidce->attributes[topic_id];
+                $model->indices_category_id = $tmp_indidce->attributes[category_id];
+               // $model->date_inc = today();
+//var_dump($model);
+                $model->save();
+            }
+            if(Yii::app()->request->isAjaxRequest){
+                echo 'success';
+                Yii::app()->end();
+            }
+            //           if($model->save())
+            //               $this->redirect(array('view','id'=>$model->id));
+        }
+
+        $model=new Rating2indices('search');
+        $model->unsetAttributes();  // clear any default values
+        $resp=$model->findAllByAttributes(array('rating_id'=>$RatingID));
+        $checkarr = array();
+        foreach ($resp as $rat2inddata){
+            $checkarr[] = $rat2inddata->attributes[indices_id];
+        }
+        $respjson = new CJSON();
+        $respjson->encode($checkarr);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if(isset($_POST['Rating2indices']))
         {
+            $model=new Rating2indices('');
             $model->attributes=$_POST['Rating2indices'];
             if($model->save())
                 $this->redirect(array('view','id'=>$model->id));
         }
 
-        $this->render('bulkcreate',array(
+
+
+        if($group == "A"){
+        $this->render('bulkcreate2',array(
             'model'=>$model,
             'rating_model'=>$rating_model,
+            'indices_model'=>$indices_model,
         ));
+        }else{
+            //TODO: send json response
+            var_dump($checkarr);
+            return $checkarr;
+
+        }
     }
 	/**
 	 * Updates a particular model.

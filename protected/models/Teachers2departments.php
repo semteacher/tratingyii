@@ -20,6 +20,7 @@
  */
 class Teachers2departments extends CActiveRecord
 {
+    public $lname_param;
     public $dep_name_param;
 	/**
 	 * @return string the associated database table name
@@ -113,6 +114,31 @@ class Teachers2departments extends CActiveRecord
 		));
 	}
 
+    public function searchByDepartments($depID)
+    {
+        $criteria=new CDbCriteria;
+        $criteria->with=array('teacher');
+        $criteria->together = true;
+
+        $criteria->compare('t.dep_id',$depID,false);
+
+        $criteria->compare('t.teacher_id',$this->teacher_id,true);
+
+        $criteria->compare('teacher.lname', $this->lname_param,true);
+
+        $sort = new CSort;
+        $sort->attributes = array(
+            'lname_param' => array(
+                'asc' => 'lname',
+                'desc' => 'lname DESC',
+            ), '*',
+        );
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'sort'=>$sort,
+        ));
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
