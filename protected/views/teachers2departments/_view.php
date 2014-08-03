@@ -10,11 +10,13 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dep_id')); ?>:</b>
-	<?php echo CHtml::encode($data->dep_id); ?>
+	<?php echo CHtml::encode($data->dep->dep_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('teacher_id')); ?>:</b>
-	<?php echo CHtml::encode($data->teacher_id); ?>
+	<?php echo CHtml::encode($data->teacher->fname); ?>
+    <?php echo CHtml::encode(' '); ?>
+    <?php echo CHtml::encode($data->teacher->lname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('assigned')); ?>:</b>

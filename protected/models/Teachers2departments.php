@@ -99,7 +99,7 @@ class Teachers2departments extends CActiveRecord
         $criteria->together = true;
 
 		$criteria->compare('t.id',$this->id);
-//		$criteria->compare('dep_id',$this->dep_id);
+		$criteria->compare('dep_id',$this->dep_id);
 //		$criteria->compare('teacher_id',$this->teacher_id);
 		$criteria->compare('assigned',$this->assigned,true);
 		$criteria->compare('released',$this->released,true);
