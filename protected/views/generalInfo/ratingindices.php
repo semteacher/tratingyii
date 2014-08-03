@@ -1,6 +1,7 @@
 <?php
 /* @var $this GeneralInfoController */
 /* @var $model GeneralInfo */
+/* @var $rating2indices_model Rating2indices */
 
 $this->breadcrumbs = array(
     'General Infos' => array('index'),

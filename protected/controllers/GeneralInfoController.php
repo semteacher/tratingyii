@@ -146,14 +146,42 @@ class GeneralInfoController extends Controller
 
     public function actionRatingIndices()
     {
+        //setup master dataset
         $model=new GeneralInfo('search');
         $model->unsetAttributes();  // clear any default values
         if(isset($_GET['GeneralInfo']))
             $model->attributes=$_GET['GeneralInfo'];
 
-        $this->render('ratingindices',array(
-            'model'=>$model,
-        ));
+        //chose mode of displaying
+        if(!isset($_GET['ratingID'])){
+            $group = "A";
+            $ratingID = 0; //Child-gridview will have no records
+        }
+        else{
+            $group = "B";
+            $ratingID = $_GET['ratingID'];
+        }
+
+        //setup detail dataset
+        $rating2indices_model = new Rating2indices('searchByRating');
+        $rating2indices_model->unsetAttributes();
+
+        if(isset($_GET['Rating2indices']))
+            $rating2indices_model->attributes=$_GET['Rating2indices'];
+
+        //render the data
+        if($group == "A") {
+            $this->render('ratingindices',array(
+                'model'=>$model,
+                //'teacher_model'=>$teacher_model,
+                //'ratingID' => $ratingID,
+            ));
+        } else {
+            $this->renderPartial('_child', array(
+                'rating2indices_model'=>$rating2indices_model,
+                'ratingID' => $ratingID,
+            ));
+        }
     }
 
 	/**
