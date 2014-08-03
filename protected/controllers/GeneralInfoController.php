@@ -163,22 +163,22 @@ class GeneralInfoController extends Controller
         }
 
         //setup detail dataset
-        $rating2indices_model = new Rating2indices('searchByRating');
-        $rating2indices_model->unsetAttributes();
+        $indicesofrating_model = new Rating2indices('searchByRating');
+        $indicesofrating_model->unsetAttributes();
 
         if(isset($_GET['Rating2indices']))
-            $rating2indices_model->attributes=$_GET['Rating2indices'];
+            $indicesofrating_model->attributes=$_GET['Rating2indices'];
 
         //render the data
         if($group == "A") {
             $this->render('ratingindices',array(
                 'model'=>$model,
-                //'teacher_model'=>$teacher_model,
-                //'ratingID' => $ratingID,
+                'indicesofrating_model'=>$indicesofrating_model,
+                'ratingID' => $ratingID,
             ));
         } else {
-            $this->renderPartial('_child', array(
-                'rating2indices_model'=>$rating2indices_model,
+            $this->renderPartial('_indicesbyrating', array(
+                'indicesofrating_model'=>$indicesofrating_model,
                 'ratingID' => $ratingID,
             ));
         }

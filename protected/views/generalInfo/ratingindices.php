@@ -1,7 +1,7 @@
 <?php
 /* @var $this GeneralInfoController */
 /* @var $model GeneralInfo */
-/* @var $rating2indices_model Rating2indices */
+/* @var $indicesofrating_model Rating2indices */
 
 $this->breadcrumbs = array(
     'General Infos' => array('index'),
@@ -93,7 +93,7 @@ $('.search-form form').submit(function(){
                                 'type' => 'get',
                                 'url' => 'js:$(this).attr("href")',
                                 'success' => 'function(response){
-                            jQuery("#childDiv").html(response);
+                            jQuery("#ratingindicesView").html(response);
                             /* you may add additional javascript statements
                             here - such as making childDiv visible etc. */
                         }',
@@ -111,5 +111,14 @@ $('.search-form form').submit(function(){
                                             'changeYear':'true'}));
     }",
     ));
+    ?>
+</div>
+
+<div id="ratingindicesView">
+    <?php
+    $this->renderPartial('_indicesbyrating', array(
+        'indicesofrating_model' => $indicesofrating_model,
+        'ratingID' => $ratingID,
+    ))
     ?>
 </div>
