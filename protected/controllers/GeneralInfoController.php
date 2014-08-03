@@ -146,13 +146,13 @@ class GeneralInfoController extends Controller
 
     public function actionRatingIndices()
     {
-        $parent_model=new GeneralInfo('search');
-        $parent_model->unsetAttributes();  // clear any default values
+        $model=new GeneralInfo('search');
+        $model->unsetAttributes();  // clear any default values
         if(isset($_GET['GeneralInfo']))
-            $parent_model->attributes=$_GET['GeneralInfo'];
+            $model->attributes=$_GET['GeneralInfo'];
 
         $this->render('ratingindices',array(
-            'model'=>$parent_model,
+            'model'=>$model,
         ));
     }
 
