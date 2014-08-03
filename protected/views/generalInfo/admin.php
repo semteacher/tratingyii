@@ -56,12 +56,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
             'filter'=>$this->widget('zii.widgets.jui.CJuiDatePicker', array(
                     'model'=>$model,
                     'attribute'=>'ratingperiod_datestart',
-                    'language'=>'en',
+                    'language'=>'uk',
+                    'htmlOptions' => array(
+                        'id' => 'datepicker_rating_period_datestart',
+                        'size' => '10',
+                    ),
                     'options'=>array(
+                        //'showOn' => 'focus',
                         'showAnim'=>'fold',
-                        'dateFormat'=>'yyyy-mm-dd',
-                        'changeMonth' => 'true',
-                        'changeYear'=>'true',
+                        'dateFormat'=>'yy-mm-dd',
+                        'showOtherMonths' => true,      // show dates in other months
+                        'selectOtherMonths' => true,    // can select dates in other months
+                        'changeYear' => true,           // can change year
+                        'changeMonth' => true,          // can change month
                     ),
                 ),true),
         ),
@@ -74,10 +81,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		),
 	),
     'afterAjaxUpdate'=>"function() {
-        jQuery('#GeneralInfo_ratingperiod_datestart').datepicker(jQuery.extend(jQuery.datepicker.regional['en'],{
+        jQuery('#datepicker_rating_period_datestart').datepicker(jQuery.extend(jQuery.datepicker.regional['uk'],{
                                             'showAnim':'fold',
-                                            'dateFormat':'yyyy-mm-dd',
+                                            'dateFormat':'yy-mm-dd',
                                             'changeMonth':'true',
                                             'changeYear':'true'}));
     }",
-)); ?>
+));
+
+
+?>

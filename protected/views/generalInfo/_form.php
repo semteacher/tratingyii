@@ -42,7 +42,7 @@
                 'showOn' => 'both',             // also opens with a button
                 'dateFormat' => 'yy-mm-dd',     // format of "2012-12-25"
                 'showOtherMonths' => true,      // show dates in other months
-                'selectOtherMonths' => true,    // can seelect dates in other months
+                'selectOtherMonths' => true,    // can select dates in other months
                 'changeYear' => true,           // can change year
                 'changeMonth' => true,          // can change month
             ),
