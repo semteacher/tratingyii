@@ -10,11 +10,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('topic_id')); ?>:</b>
-	<?php echo CHtml::encode($data->topic_id); ?>
+	<?php echo CHtml::encode($data->topic->topic_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('category_id')); ?>:</b>
-	<?php echo CHtml::encode($data->category_id); ?>
+	<?php echo CHtml::encode($data->category->category_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('indice_name')); ?>:</b>
@@ -26,7 +26,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('datatype_id')); ?>:</b>
-	<?php echo CHtml::encode($data->datatype_id); ?>
+	<?php echo CHtml::encode($data->datatype->datatype_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('indice_def_weight')); ?>:</b>
