@@ -11,6 +11,7 @@ $this->menu=array(
 	array('label'=>'List Rating2indices', 'url'=>array('index')),
 	array('label'=>'Create Rating2indices', 'url'=>array('create')),
     array('label'=>'Bulk Create Rating2indices', 'url'=>array('bulkcreate')),
+    array('label'=>'Mass Create Rating2indices', 'url'=>array('masscreate')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

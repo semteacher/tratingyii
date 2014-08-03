@@ -36,7 +36,7 @@ class Rating2indicesController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('bulkcreate','admin','delete'),
+				'actions'=>array('masscreate','bulkcreate','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -166,6 +166,45 @@ class Rating2indicesController extends Controller
             //TODO: send json response
             var_dump($checkarr);
             return $checkarr;
+
+        }
+    }
+
+    public function actionMassCreate()
+    {
+        $rating_model=new GeneralInfo('search');
+        $rating_model->unsetAttributes();  // clear any default values
+        if(isset($_GET['GeneralInfo']))
+            $rating_model->attributes=$_GET['GeneralInfo'];
+
+        $indices_model=new Indices('search');
+        $indices_model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Indices']))
+            $indices_model->attributes=$_GET['Indices'];
+
+        $model=new Rating2indices('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Rating2indices']))
+            $model->attributes=$_GET['Rating2indices'];
+
+        if(!isset($_GET['RatingID'])) {
+            $RatingID = 1;//TODO: get first real ratingid
+            $group = "A";
+        } else {
+            $RatingID = $_GET['RatingID'];
+            $group = "B";
+        }
+
+        if($group == "A"){
+            $this->render('masscreate',array(
+                'model'=>$model,
+                'rating_model'=>$rating_model,
+                'indices_model'=>$indices_model,
+            ));
+        }else{
+            //TODO: send json response
+            //var_dump($checkarr);
+            //return $checkarr;
 
         }
     }
