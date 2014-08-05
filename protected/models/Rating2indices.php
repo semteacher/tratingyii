@@ -121,6 +121,8 @@ class Rating2indices extends CActiveRecord
         $criteria->compare('t.rating_id',$ratingID,false);
 
         $criteria->compare('t.indices_id',$this->indices_id,true);
+        $criteria->compare('t.indices_topic_id',$this->indices_topic_id,true);
+        $criteria->compare('t.indices_category_id',$this->indices_category_id,true);
 
         $criteria->compare('indices.indice_name', $this->indice_name_param,true);
 

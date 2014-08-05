@@ -16,9 +16,21 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'filter'=>$indicesofrating_model,
     'columns'=>array(
         'id',
-        'indices_topic_id',
+        //'indices_topic_id',
+        array(
+            'name' => 'indices_topic_id',
+            'type' => 'raw',
+            'value' => '$data->indices->topic->topic_name',
+            'filter'=> CHtml::listData(IndicesTopics::model()->findAll(), 'id', 'topic_name'),
+        ),
         //'indices_category_id',
-        'indices.category.category_name',
+        //'indices.category.category_name',
+        array(
+            'name' => 'indices_category_id',
+            'type' => 'raw',
+            'value' => '$data->indices->category->category_name',
+            'filter'=> CHtml::listData(IndicesCategories::model()->findAll(), 'id', 'category_name'),
+        ),
         //'indices.indice_name',
         array(
             'name'=>'indice_name_param',
