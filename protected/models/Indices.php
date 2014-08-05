@@ -109,6 +109,27 @@ class Indices extends CActiveRecord
 		));
 	}
 
+    public function searchNotInRating($ratingID)
+    {
+        //create list of the indices by the current rating
+        $list_indices=Rating2indices::model()->findAll('rating_id=:rating_id',array(':rating_id'=>$ratingID));
+        $list_indices_arr=array();
+        foreach ($list_indices as $curr_indice){
+            $list_indices_arr[]=$curr_indice->indices_id;
+        }
+
+        $criteria=new CDbCriteria;
+        $criteria->addNotInCondition('t.id',$list_indices_arr);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.topic_id',$this->topic_id);
+        $criteria->compare('t.category_id',$this->category_id);
+        $criteria->compare('t.indice_name',$this->indice_name,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

@@ -2,6 +2,7 @@
 /* @var $this GeneralInfoController */
 /* @var $model GeneralInfo */
 /* @var $indicesofrating_model Rating2indices */
+/* @var $moreindices_model Indices */
 
 $this->breadcrumbs = array(
     'General Infos' => array('index'),
@@ -121,6 +122,7 @@ $('.search-form form').submit(function(){
     <?php
     $this->renderPartial('_indicesbyrating', array(
         'indicesofrating_model' => $indicesofrating_model,
+        'moreindices_model'=>$moreindices_model,
         'ratingID' => $ratingID,
     ))
     ?>

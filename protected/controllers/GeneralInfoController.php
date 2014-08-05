@@ -162,23 +162,31 @@ class GeneralInfoController extends Controller
             $ratingID = $_GET['ratingID'];
         }
 
-        //setup detail dataset
+        //setup detail dataset - indices per current rating
         $indicesofrating_model = new Rating2indices('searchByRating');
         $indicesofrating_model->unsetAttributes();
 
         if(isset($_GET['Rating2indices']))
             $indicesofrating_model->attributes=$_GET['Rating2indices'];
 
+        //TODO: list more available indices
+        $moreindices_model = new Indices('searchNotInRating');
+        $moreindices_model->unsetAttributes();
+        if(isset($_GET['Indices']))
+            $moreindices_model->attributes=$_GET['Indices'];
+
         //render the data
         if($group == "A") {
             $this->render('ratingindices',array(
                 'model'=>$model,
                 'indicesofrating_model'=>$indicesofrating_model,
+                'moreindices_model'=>$moreindices_model,
                 'ratingID' => $ratingID,
             ));
         } else {
             $this->renderPartial('_indicesbyrating', array(
                 'indicesofrating_model'=>$indicesofrating_model,
+                'moreindices_model'=>$moreindices_model,
                 'ratingID' => $ratingID,
             ));
         }

@@ -44,7 +44,7 @@ class Rating2indices extends CActiveRecord
 			array('date_inc', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, weight, date_inc, is_chief_only','safe', 'on'=>'search'),
+			array('indice_name_param, id, rating_id, indices_id, indices_topic_id, indices_category_id, is_archive, weight, date_inc, is_chief_only','safe', 'on'=>'search'),
 		);
 	}
 
@@ -120,11 +120,12 @@ class Rating2indices extends CActiveRecord
 
         $criteria->compare('t.rating_id',$ratingID,false);
 
-        $criteria->compare('t.indices_id',$this->indices_id,true);
-        $criteria->compare('t.indices_topic_id',$this->indices_topic_id,true);
-        $criteria->compare('t.indices_category_id',$this->indices_category_id,true);
+        $criteria->compare('t.indices_id',$this->indices_id);
+        $criteria->compare('t.indices_topic_id',$this->indices_topic_id);
+        $criteria->compare('t.indices_category_id',$this->indices_category_id);
 
         $criteria->compare('indices.indice_name', $this->indice_name_param,true);
+        //$criteria->compare('indices.indice_name', $this->indices->indice_name,true);
 
         $sort = new CSort;
         $sort->attributes = array(
