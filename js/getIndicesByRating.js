@@ -7,7 +7,8 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         Go down to child(1) - which gives you the first column,
             containing the row's PK. */
         var gridRowPK = $(this).parent().children(':nth-child(1)').text();
-        //var gridRowPK = $('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0');
+        //var gridRowPK = parseInt($.fn.yiiGridView.getSelection(id));
+        //var gridRowPK = parseInt(('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0'));
  //console.log(gridRowPK);
         /*Display the loading.gif file via jquery and CSS*/
         $("#loadingPic").addClass("loadGIF");
@@ -20,7 +21,7 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
           type: "GET",
           cache: false,
           data: {RatingID : gridRowPK},
-          dataType: "html" 
+          dataType: "json"
         });
  
         /* Url Problems: 
@@ -43,17 +44,22 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
  
         This gave me a hint, than maybe, my url is not formatted correctly.*/
 
-        request.done(function(response) { 
+        request.success(function(response) {
             try{
                 console.log(response);
                 /*since you are updating innerHTML, make sure the
-                received data does not contain any javascript - 
+                received data does not contain any javascript -
                 for security reasons*/
-                if (response.isArray){
-
+                if (response){
+                    //clear all previous checks
+                    $(".checkclass").attr("checked", false);
+                    $(".checkclass").closest('tr').removeClass( "selected" );
                     /*update the view with the data received 
-                    from the server*/       
-            document.getElementById('childView').innerHTML = response;
+                    from the server*/
+                    $.each(response, function( index, value ) {
+                        $("input:checkbox[value="+ value+"]").attr("checked", true);
+                        $("input:checkbox[value="+ value+"]").closest('tr').addClass( "selected" );
+                    });
                 }
                 else {
                     throw new Error('Invalid Javascript in Response - possible hacking!');
@@ -99,7 +105,7 @@ function treat() {
 var gridRowPK = $('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0');
 var checkdata = $('#rating2indices-grid').yiiGridView('getChecked', 'rating2indices-grid_c0');
     console.log(checkdata);
-    alert(checkdata);
+   // alert(checkdata);
 
     var request = $.ajax({
         url: "index.php?r=rating2indices/bulkcreate",

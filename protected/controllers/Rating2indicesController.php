@@ -141,8 +141,7 @@ class Rating2indicesController extends Controller
         foreach ($resp as $rat2inddata){
             $checkarr[] = $rat2inddata->attributes[indices_id];
         }
-        $respjson = new CJSON();
-        $respjson->encode($checkarr);
+        $respjson = CJSON::encode($checkarr);
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -164,8 +163,8 @@ class Rating2indicesController extends Controller
         ));
         }else{
             //TODO: send json response
-            var_dump($checkarr);
-            return $checkarr;
+           // var_dump($checkarr);
+            echo $respjson;
 
         }
     }
