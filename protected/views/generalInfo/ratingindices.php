@@ -49,7 +49,7 @@ $('.search-form form').submit(function(){
         'id' => 'general-info-grid',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        'ajaxUpdate' => 'childView',
+        'ajaxUpdate' => 'ratingindicesView',
         'selectionChanged'=> "updateChild",  // new function
         'columns' => array(
             'id',

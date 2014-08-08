@@ -162,6 +162,26 @@ class GeneralInfoController extends Controller
             $ratingID = $_GET['ratingID'];
         }
 
+        if(isset($_POST['CheckData'])&&isset($_POST['ratingID'])){
+            $group = "B";
+            $checkdata=$_POST['CheckData'];
+            $ratingID = $_POST['ratingID'][0];
+            //var_dump($checkdata);
+            //var_dump($RatingID[0]);
+            foreach ($checkdata as $indiceID) {
+                $tmp_indidce=Indices::model()->findByPk($indiceID);
+                //var_dump($tmp_indidce);
+                $tmp_model = new Rating2indices;
+                $tmp_model->rating_id = $ratingID;
+                $tmp_model->indices_id = $tmp_indidce->attributes[id];
+                $tmp_model->indices_topic_id = $tmp_indidce->attributes[topic_id];
+                $tmp_model->indices_category_id = $tmp_indidce->attributes[category_id];
+                // $model->date_inc = today();
+//var_dump($model);
+                $tmp_model->save();
+            }
+        }
+
         //setup detail dataset - indices per current rating
         $indicesofrating_model = new Rating2indices('searchByRating');
         $indicesofrating_model->unsetAttributes();

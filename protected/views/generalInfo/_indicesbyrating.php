@@ -61,7 +61,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'moreindices-child-grid',
     'dataProvider'=>$moreindices_model->searchNotInRating($ratingID),
     'filter'=>$moreindices_model,
+    'selectableRows' => 2,
     'columns'=>array(
+        array(
+            'class'=>'CCheckBoxColumn',
+            'value'=>'$data["id"]',
+            'checkBoxHtmlOptions' => array('class' => 'checkclass'),
+        ),
         'id',
         //'indices_topic_id',
         array(
@@ -90,3 +96,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
+<div style="margin-bottom: -30px;">
+    <button type="button" onclick="addindices();">
+        <span>Add selected indices to the current rating</span>
+    </button>
+</div>

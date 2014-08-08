@@ -95,3 +95,43 @@ function updateChild(id, options)
         in production ***/
     }
 }
+function addindices() {
+    $("#loadingPic").addClass("loadGIF");
+    var gridRowPK = $('#general-info-grid').yiiGridView('getSelection', 'general-info-grid_c0');
+    var checkdata = $('#moreindices-child-grid').yiiGridView('getChecked', 'moreindices-child-grid_c0');
+    console.log(checkdata);
+    console.log(gridRowPK);
+    // alert(checkdata);
+
+    var request = $.ajax({
+        url: "index.php?r=generalInfo/ratingindices",
+        type: "POST",
+        cache: false,
+        data: {ratingID : gridRowPK, CheckData : checkdata},
+        dataType: "html"
+    });
+    request.done(function(response) {
+        try{
+            if (response.indexOf('<script') == -1){
+
+                /*update the view with the data received
+                 from the server*/
+                document.getElementById('ratingindicesView').innerHTML = response;
+            }
+            else {
+                throw new Error('Invalid Javascript in Response - possible hacking-2!');
+            }
+        }
+        catch (ex){
+            alert(ex.message); /*** Send this to the server
+             for logging when in production ***/
+        }
+        finally{
+            /*Remove the loading.gif file via jquery and CSS*/
+            $("#loadingPic").removeClass("loadGIF");
+
+            /*clear the ajax object after use*/
+            request = null;
+        }
+    });
+}
