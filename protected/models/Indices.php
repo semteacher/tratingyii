@@ -119,8 +119,13 @@ class Indices extends CActiveRecord
         }
 
         $criteria=new CDbCriteria;
-        $criteria->addNotInCondition('t.id',$list_indices_arr);
-        $criteria->compare('t.id',$this->id);
+        if ($ratingID>0){
+            $criteria->addNotInCondition('t.id',$list_indices_arr);
+        }else{
+            $criteria->addInCondition('t.id',$list_indices_arr);
+        }
+
+        //$criteria->compare('t.id',$this->id);
         $criteria->compare('t.topic_id',$this->topic_id);
         $criteria->compare('t.category_id',$this->category_id);
         $criteria->compare('t.indice_name',$this->indice_name,true);
