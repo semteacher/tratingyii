@@ -14,7 +14,29 @@
 
 <body>
 
-<?php $this->widget('bootstrap.widgets.TbNavbar',array(
+<?php
+if(Yii::app()->user->name==='admin') {
+    $adminmenu=        array(
+        'class'=>'bootstrap.widgets.TbMenu',
+        'htmlOptions'=>array('class'=>'pull-right'),
+        'items'=>array(
+            array('label'=>'Manage Ratings'. ' (' . GeneralInfo::model()->count() . ')', 'url'=>'index.php?r=generalInfo/admin'),
+            array('label'=>'Dropdown', 'url'=>'#', 'items'=>array(
+                array('label'=>'Manage Indices' . ' (' . Indices::model()->count() . ')', 'url'=>'index.php?r=indices/admin'),
+                array('label'=>'Manage Indices Assignments', 'url'=>'index.php?r=rating2indices/admin'),
+                '---',
+                array('label'=>'Manage Users'. ' (' . Teachers::model()->count() . ')', 'url'=>'index.php?r=teachers/admin'),
+                array('label'=>'Manage Departments'. ' (' . Departments::model()->count() . ')', 'url'=>'index.php?r=departments/admin'),
+                array('label'=>'Manage User Assignments', 'url'=>'index.php?r='),
+                '---',
+                array('label'=>'Logout', 'url'=>'index.php?r=site/logout'),
+            )),
+        ),
+    );
+}else{
+    $adminmenu=array();
+}
+$this->widget('bootstrap.widgets.TbNavbar',array(
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -22,10 +44,13 @@
                 array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Contact', 'url'=>array('/site/contact')),
+                array('label'=>'Rating', 'url'=>array('/generalInfo/index')),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
         ),
+        $adminmenu,
+
     ),
 )); ?>
 
