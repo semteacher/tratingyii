@@ -2,6 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -9,13 +10,14 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Teachers Rating',
     //'defaultController'=>'site',
+   // 'theme'=>'bootstrap',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
 
 	// autoloading model and component classes
 	'import'=>array(
-        'ext.giix-components.*', // giix components 
+        'ext.giix-components.*', // giix components
 		'application.models.*',
 		'application.components.*',
 	),
@@ -27,6 +29,7 @@ return array(
 			'class'=>'system.gii.GiiModule',
             'generatorPaths' => array(
                 'ext.giix-core', // giix generators
+                'bootstrap.gii',
             ),
 			'password'=>'radmin',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -41,7 +44,10 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		// uncomment the following to enable URLs in path-format
+        'bootstrap'=>array(
+            'class'=>'bootstrap.components.Bootstrap',
+        ),
+        // uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
@@ -52,9 +58,9 @@ return array(
 			),
 		),
 		*/
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+		//'db'=>array(
+		//	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+		//),
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
