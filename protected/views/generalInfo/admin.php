@@ -8,8 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List GeneralInfo', 'url'=>array('index')),
-	array('label'=>'Create GeneralInfo', 'url'=>array('create')),
+	array('label'=>'List Ratings', 'url'=>array('index')),
+	array('label'=>'Create Rating', 'url'=>array('create')),
+    array('label'=>'Manage Rating Indices', 'url'=>array('ratingindices')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

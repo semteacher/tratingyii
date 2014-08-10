@@ -68,7 +68,6 @@ $('.search-form form').submit(function(){
     'columns'=>array(
         array(
             'class'=>'CCheckBoxColumn',
-
             'value'=>'$data["id"]',
             'checkBoxHtmlOptions' => array('class' => 'checkclass'),
         ),

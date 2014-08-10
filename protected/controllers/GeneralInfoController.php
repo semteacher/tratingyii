@@ -37,7 +37,7 @@ class GeneralInfoController extends Controller
                 'users'=>array('admin'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('ratingindices','admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -143,6 +143,74 @@ class GeneralInfoController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionRatingIndices()
+    {
+        //setup master dataset
+        $model=new GeneralInfo('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['GeneralInfo']))
+            $model->attributes=$_GET['GeneralInfo'];
+
+        //chose mode of displaying
+        if(!isset($_GET['ratingID'])){
+            $group = "A";
+            $ratingID = 0; //Child-gridview will have no records
+        }
+        else{
+            $group = "B";
+            $ratingID = $_GET['ratingID'];
+        }
+
+        if(isset($_POST['CheckData'])&&isset($_POST['ratingID'])){
+            $group = "B";
+            $checkdata=$_POST['CheckData'];
+            $ratingID = $_POST['ratingID'][0];
+            //var_dump($checkdata);
+            //var_dump($RatingID[0]);
+            foreach ($checkdata as $indiceID) {
+                $tmp_indidce=Indices::model()->findByPk($indiceID);
+                //var_dump($tmp_indidce);
+                $tmp_model = new Rating2indices;
+                $tmp_model->rating_id = $ratingID;
+                $tmp_model->indices_id = $tmp_indidce->attributes[id];
+                $tmp_model->indices_topic_id = $tmp_indidce->attributes[topic_id];
+                $tmp_model->indices_category_id = $tmp_indidce->attributes[category_id];
+                // $model->date_inc = today();
+//var_dump($model);
+                $tmp_model->save();
+            }
+        }
+
+        //setup detail dataset - indices per current rating
+        $indicesofrating_model = new Rating2indices('searchByRating');
+        $indicesofrating_model->unsetAttributes();
+
+        if(isset($_GET['Rating2indices']))
+            $indicesofrating_model->attributes=$_GET['Rating2indices'];
+
+        //TODO: list more available indices
+        $moreindices_model = new Indices('searchNotInRating');
+        $moreindices_model->unsetAttributes();
+        if(isset($_GET['Indices']))
+            $moreindices_model->attributes=$_GET['Indices'];
+
+        //render the data
+        if($group == "A") {
+            $this->render('ratingindices',array(
+                'model'=>$model,
+                'indicesofrating_model'=>$indicesofrating_model,
+                'moreindices_model'=>$moreindices_model,
+                'ratingID' => $ratingID,
+            ));
+        } else {
+            $this->renderPartial('_indicesbyrating', array(
+                'indicesofrating_model'=>$indicesofrating_model,
+                'moreindices_model'=>$moreindices_model,
+                'ratingID' => $ratingID,
+            ));
+        }
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

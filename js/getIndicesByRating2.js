@@ -1,15 +1,15 @@
-$('#parentView').on("click", "table tbody td:not(td.button-column)", function(event){
- 
+function updateChild(id, options)
+{
     try{
-        /*Extract the Primary Key from the CGridView's clicked row.
-        "this" is the CGridView's clicked column or <td>.
-        Go up one parent - which gives you the row.
-        Go down to child(1) - which gives you the first column,
-            containing the row's PK. */
-        var gridRowPK = $(this).parent().children(':nth-child(1)').text();
-        //var gridRowPK = parseInt($.fn.yiiGridView.getSelection(id));
-        //var gridRowPK = parseInt(('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0'));
- //console.log(gridRowPK);
+        /*  Extract the Primary Key from the CGridView's clicked row */
+        var gridRowPK = parseInt($.fn.yiiGridView.getSelection(id));
+
+        /* If $.fn.yiiGridView.getSelection(id) can not find PK, then return. */
+        if(isNaN(gridRowPK)){
+            return;
+        };
+
+ console.log(gridRowPK);
         /*Display the loading.gif file via jquery and CSS*/
         $("#loadingPic").addClass("loadGIF");
  
@@ -17,11 +17,11 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         controller’s actionAdmin.*/
  
         var request = $.ajax({ 
-          url: "index.php?r=rating2indices/bulkcreate",
+          url: "index.php?r=generalInfo/ratingindices",
           type: "GET",
           cache: false,
-          data: {RatingID : gridRowPK},
-          dataType: "json"
+          data: {ratingID : gridRowPK},
+          dataType: "html" 
         });
  
         /* Url Problems: 
@@ -44,22 +44,17 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
  
         This gave me a hint, than maybe, my url is not formatted correctly.*/
 
-        request.success(function(response) {
+        request.done(function(response) { 
             try{
-                console.log(response);
+               // console.log(response);
                 /*since you are updating innerHTML, make sure the
-                received data does not contain any javascript -
+                received data does not contain any javascript - 
                 for security reasons*/
-                if (response){
-                    //clear all previous checks
-                    $(".checkclass").attr("checked", false);
-                    $(".checkclass").closest('tr').removeClass( "selected" );
+                if (response.indexOf('<script') == -1){
+
                     /*update the view with the data received 
-                    from the server*/
-                    $.each(response, function( index, value ) {
-                        $("input:checkbox[value="+ value+"]").attr("checked", true);
-                        $("input:checkbox[value="+ value+"]").closest('tr').addClass( "selected" );
-                    });
+                    from the server*/       
+            document.getElementById('ratingindicesView').innerHTML = response;
                 }
                 else {
                     throw new Error('Invalid Javascript in Response - possible hacking!');
@@ -99,24 +94,33 @@ $('#parentView').on("click", "table tbody td:not(td.button-column)", function(ev
         alert(ex.message); /*** Send this to the server for logging when 
         in production ***/
     }
-});
-function treat() {
+}
+function addindices() {
     $("#loadingPic").addClass("loadGIF");
-var gridRowPK = $('#ratings-grid').yiiGridView('getSelection', 'ratings-grid_c0');
-var checkdata = $('#rating2indices-grid').yiiGridView('getChecked', 'rating2indices-grid_c0');
+    var gridRowPK = $('#general-info-grid').yiiGridView('getSelection', 'general-info-grid_c0');
+    var checkdata = $('#moreindices-child-grid').yiiGridView('getChecked', 'moreindices-child-grid_c0');
     console.log(checkdata);
-   // alert(checkdata);
+    console.log(gridRowPK);
+    // alert(checkdata);
 
     var request = $.ajax({
-        url: "index.php?r=rating2indices/bulkcreate",
+        url: "index.php?r=generalInfo/ratingindices",
         type: "POST",
         cache: false,
-        data: {RatingID : gridRowPK, CheckData : checkdata},
+        data: {ratingID : gridRowPK, CheckData : checkdata},
         dataType: "html"
     });
     request.done(function(response) {
         try{
+            if (response.indexOf('<script') == -1){
 
+                /*update the view with the data received
+                 from the server*/
+                document.getElementById('ratingindicesView').innerHTML = response;
+            }
+            else {
+                throw new Error('Invalid Javascript in Response - possible hacking-2!');
+            }
         }
         catch (ex){
             alert(ex.message); /*** Send this to the server
