@@ -150,16 +150,36 @@ class Teacher2indicesValuesController extends Controller
 
     public function actionIndicesValues()
     {
-        $model=new Teacher2indicesValues;
-
+        $group = "A";
         if(!isset($_GET['ratingID'])){
-            $group = "A";
             $ratingID = 0; //Child-gridview will have no records
-        }
-        else{
-            $group = "B";
+        } else{
             $ratingID = $_GET['ratingID'];
         }
+
+        $act = $_GET['act'];
+        if($act=='teacherindicesvalues')
+        {
+            $group = "B";
+            $teacherindicesvaluesAll = $_POST['yourvalue'];
+            if(count($teacherindicesvaluesAll)>0)
+            {
+                foreach($teacherindicesvaluesAll as $indicesId=>$teacherindicesvalues)
+                {
+                    //$tmp_indidce=Rating2indices::model()->findByPk($indicesId);
+                    //$model=$this->loadModel($menuId);
+                    $model=new Teacher2indicesValues;
+                    $model->rating2indice_id = $indicesId;
+                    $model->value = $teacherindicesvalues;
+                    $model->teacher_id = 3; //kravec TODO: get teacher id form session
+                    $model->setup_date = new CDbExpression('NOW()');
+//                    $model->sortOrder = $sortOrder;
+                    $model->save();
+                }
+            }
+        }
+
+        //$model=new Teacher2indicesValues;
 
         $ratingindicesmodel = new Rating2indices('searchByRating');
         $ratingindicesmodel->unsetAttributes();
@@ -175,11 +195,16 @@ class Teacher2indicesValuesController extends Controller
                 $this->redirect(array('view','id'=>$model->id));
         }
 
-        $this->render('indicesvalues',array(
-            'model'=>$model,
-            'ratingindicesmodel'=>$ratingindicesmodel,
-            'ratingID'=>$ratingID,
-        ));
+        if ($group == "A"){
+            $this->render('indicesvalues',array(
+                //'model'=>$model,
+                'ratingindicesmodel'=>$ratingindicesmodel,
+                'ratingID'=>$ratingID,
+            ));
+        } else {
+            echo $teacherindicesvaluesAll;
+        }
+
     }
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

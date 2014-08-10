@@ -1,6 +1,6 @@
 <?php
 /* @var $this Teacher2indicesValuesController */
-/* @var $model Teacher2indicesValues */
+
 /* @var ratingindicesmodel Rating2indices */
 
 
@@ -17,10 +17,13 @@ $this->menu=array(
 
 <h1>Your Indices Values</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+
 
 <h3>Indices by selected Rating: <?php echo GeneralInfo::model()->findByPk($ratingID)->rating_name; ?></h3>
 
+<?php $form=$this->beginWidget('CActiveForm', array(
+    'enableAjaxValidation'=>true,
+)); ?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'raingindices-child-grid',
@@ -70,4 +73,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
-<?php echo CHtml::ajaxSubmitButton('Update Your Values',array('teacher2indicesvalues/indicesvalues&ratingID='.$ratingID,'act'=>'indicesvalues'), array('success'=>'reloadGrid')); ?>
+    <script>
+        function reloadGrid(data) {
+            $.fn.yiiGridView.update('raingindices-child-grid');
+        }
+    </script>
+
+<?php echo CHtml::ajaxSubmitButton('Update Your Values',array('teacher2indicesvalues/indicesvalues&ratingID='.$ratingID,'act'=>'teacherindicesvalues'), array('success'=>'reloadGrid')); ?>
+<?php $this->endWidget(); ?>
