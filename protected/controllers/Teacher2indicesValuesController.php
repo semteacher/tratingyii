@@ -31,7 +31,7 @@ class Teacher2indicesValuesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','indicesvalues'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -148,6 +148,39 @@ class Teacher2indicesValuesController extends Controller
 		));
 	}
 
+    public function actionIndicesValues()
+    {
+        $model=new Teacher2indicesValues;
+
+        if(!isset($_GET['ratingID'])){
+            $group = "A";
+            $ratingID = 0; //Child-gridview will have no records
+        }
+        else{
+            $group = "B";
+            $ratingID = $_GET['ratingID'];
+        }
+
+        $ratingindicesmodel = new Rating2indices('searchByRating');
+        $ratingindicesmodel->unsetAttributes();
+        if(isset($_GET['Rating2indices']))
+            $ratingindicesmodel->attributes=$_GET['Rating2indices'];
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if(isset($_POST['Teacher2indicesValues']))
+        {
+            $model->attributes=$_POST['Teacher2indicesValues'];
+            if($model->save())
+                $this->redirect(array('view','id'=>$model->id));
+        }
+
+        $this->render('indicesvalues',array(
+            'model'=>$model,
+            'ratingindicesmodel'=>$ratingindicesmodel,
+            'ratingID'=>$ratingID,
+        ));
+    }
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

@@ -22,6 +22,7 @@
 class Rating2indices extends CActiveRecord
 {
     public $indice_name_param;
+    public $yourvalue;
 	/**
 	 * @return string the associated database table name
 	 */

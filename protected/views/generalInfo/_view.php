@@ -29,5 +29,7 @@
 	<?php echo CHtml::encode($data->submission_dateend); ?>
 	<br />
 
+    <?php echo CHtml::link(CHtml::encode('Your Rating Data'), array('teacher2indicesvalues/indicesvalues', 'ratingID'=>$data->id)); ?>
+    <br />
 
 </div>
