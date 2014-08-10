@@ -22,7 +22,7 @@
 class Rating2indices extends CActiveRecord
 {
     public $indice_name_param;
-    public $yourvalue;
+    public $_yourvalue;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -142,6 +142,26 @@ class Rating2indices extends CActiveRecord
         ));
     }
 
+    public function getYourvalue()
+    {
+       // $tpm_arr=array();
+        $tmpvar='';
+        $criteria=new CDbCriteria(); $criteria->addCondition('teacher_id=3');//TODO:get id from session
+        $tmpindval=$this->getRelated('teacher2indicesValues',true,$criteria);
+        if (count($tmpindval)>0){
+            $tmpvar = $tmpindval[0]->getAttribute('value');
+        }
+
+       // foreach(teacher2indicesValues as $tmpteacher2indicesValues){
+         //   $tpm_arr[$tmpteacher2indicesValues->rating2indice_id]=$tmpteacher2indicesValues->value;
+       // }
+        return $this->_yourvalue= $tmpvar;
+    }
+
+    public function setYourvalue()
+    {
+
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

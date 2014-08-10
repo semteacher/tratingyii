@@ -60,7 +60,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name'=>'yourvalue',
             'type'=>'raw',
-            'value'=>'CHtml::textField("yourvalue[$data->id]",$data->yourvalue,array("style"=>"width:50px;"))',
+            'value'=>'CHtml::textField("yourvalues[$data->id]",$data->yourvalue,array("style"=>"width:50px;"))',
             'htmlOptions'=>array("width"=>"50px"),
         ),
         array(

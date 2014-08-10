@@ -161,19 +161,19 @@ class Teacher2indicesValuesController extends Controller
         if($act=='teacherindicesvalues')
         {
             $group = "B";
-            $teacherindicesvaluesAll = $_POST['yourvalue'];
+            $teacherindicesvaluesAll = $_POST['yourvalues'];
             if(count($teacherindicesvaluesAll)>0)
             {
                 foreach($teacherindicesvaluesAll as $indicesId=>$teacherindicesvalues)
                 {
-                    //$tmp_indidce=Rating2indices::model()->findByPk($indicesId);
-                    //$model=$this->loadModel($menuId);
-                    $model=new Teacher2indicesValues;
+                    $model=Teacher2indicesValues::model()->find('(rating2indice_id=:indicesID)AND(teacher_id=:teacherID)',array(':indicesID'=>$indicesId,':teacherID'=>3));
+                    if (!$model){
+                        $model=new Teacher2indicesValues;
+                    }
                     $model->rating2indice_id = $indicesId;
                     $model->value = $teacherindicesvalues;
                     $model->teacher_id = 3; //kravec TODO: get teacher id form session
                     $model->setup_date = new CDbExpression('NOW()');
-//                    $model->sortOrder = $sortOrder;
                     $model->save();
                 }
             }
@@ -183,6 +183,17 @@ class Teacher2indicesValuesController extends Controller
 
         $ratingindicesmodel = new Rating2indices('searchByRating');
         $ratingindicesmodel->unsetAttributes();
+
+       // $tmp_teachval=Teacher2indicesValues::model()->findAll('(ratingID=:ratingID)AND()', array(':ratingID'=>$ratingID));
+        $tmp_ratingind=Rating2indices::model()->with('teacher2indicesValues')->findAll('(rating_id=:ratingID)AND(teacher_id=:teacherID)', array(':ratingID'=>$ratingID,':teacherID'=>3));
+        foreach($tmp_ratingind as $key=>$tmpone_ratingind){
+      //      $tmpone_ratingind
+        }
+        //$tmp_ratingind=Rating2indices::model()->with('teacher2indicesValues')->findAll('rating_id=:ratingID', array(':ratingID'=>$ratingID));
+
+        //  $tmp_rating=GeneralInfo::model()->findByPk($ratingID);
+      //  $tmp_ratind=$tmp_rating->attributes;
+
         if(isset($_GET['Rating2indices']))
             $ratingindicesmodel->attributes=$_GET['Rating2indices'];
         // Uncomment the following line if AJAX validation is needed
