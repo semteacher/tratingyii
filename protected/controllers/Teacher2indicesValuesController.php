@@ -166,13 +166,13 @@ class Teacher2indicesValuesController extends Controller
             {
                 foreach($teacherindicesvaluesAll as $indicesId=>$teacherindicesvalues)
                 {
-                    $model=Teacher2indicesValues::model()->find('(rating2indice_id=:indicesID)AND(teacher_id=:teacherID)',array(':indicesID'=>$indicesId,':teacherID'=>3));
+                    $model=Teacher2indicesValues::model()->find('(rating2indice_id=:indicesID)AND(teacher_id=:teacherID)',array(':indicesID'=>$indicesId,':teacherID'=>Yii::app()->user->id));
                     if (!$model){
                         $model=new Teacher2indicesValues;
                     }
                     $model->rating2indice_id = $indicesId;
                     $model->value = $teacherindicesvalues;
-                    $model->teacher_id = 3; //kravec TODO: get teacher id form session
+                    $model->teacher_id = Yii::app()->user->id; //kravec TODO: get teacher id form session
                     $model->setup_date = new CDbExpression('NOW()');
                     $model->save();
                 }

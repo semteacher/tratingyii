@@ -146,7 +146,8 @@ class Rating2indices extends CActiveRecord
     {
        // $tpm_arr=array();
         $tmpvar='';
-        $criteria=new CDbCriteria(); $criteria->addCondition('teacher_id=3');//TODO:get id from session
+        //$tt=Yii::app()->user->id;
+        $criteria=new CDbCriteria(); $criteria->addCondition('teacher_id='.Yii::app()->user->id);//TODO:get id from session
         $tmpindval=$this->getRelated('teacher2indicesValues',true,$criteria);
         if (count($tmpindval)>0){
             $tmpvar = $tmpindval[0]->getAttribute('value');
