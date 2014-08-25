@@ -10,7 +10,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Teachers Rating',
     //'defaultController'=>'site',
-    'theme'=>'bootstrap',
+    //'theme'=>'bootstrap',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
