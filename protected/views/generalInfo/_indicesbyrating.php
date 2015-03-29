@@ -7,7 +7,7 @@
  */
 ?>
 
-<h3>Indices by selected Rating: <?php echo GeneralInfo::model()->findByPk($ratingID)->rating_name; ?></h3>
+<h3>Indices by selected Rating: <?php if (!is_null(GeneralInfo::model()->findByPk($ratingID))) { echo GeneralInfo::model()->findByPk($ratingID)->rating_name; } ?></h3>
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(

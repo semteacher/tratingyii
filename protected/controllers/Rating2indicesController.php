@@ -139,7 +139,7 @@ class Rating2indicesController extends Controller
         $resp=$model->findAllByAttributes(array('rating_id'=>$RatingID));
         $checkarr = array();
         foreach ($resp as $rat2inddata){
-            $checkarr[] = $rat2inddata->attributes[indices_id];
+            $checkarr[] = $rat2inddata->attributes['indices_id'];
         }
         $respjson = CJSON::encode($checkarr);
         // Uncomment the following line if AJAX validation is needed

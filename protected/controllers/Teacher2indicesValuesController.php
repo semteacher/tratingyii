@@ -157,7 +157,11 @@ class Teacher2indicesValuesController extends Controller
             $ratingID = $_GET['ratingID'];
         }
 
-        $act = $_GET['act'];
+        if(!isset($_GET['act'])){
+            $act = '';
+        } else{
+            $act = $_GET['act'];
+        }
         if($act=='teacherindicesvalues')
         {
             $group = "B";
